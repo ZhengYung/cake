@@ -33,7 +33,7 @@ npm run build
 ```sh
 npm run lint
 ```
-###docker-compose up
+### docker-compose up
 ```sh
  $time = Get-Date -Format "yyyyMMdd-HHmmss.fff"
  $hash = [System.Security.Cryptography.SHA256]::Create().ComputeHash([System.Text.Encoding]::UTF8.GetBytes($time))
@@ -41,7 +41,7 @@ npm run lint
  $env:SECRET_KEY = $secretKey
  docker-compose up
 ```
-###php API
+### php API
 ```sh
 cd html/api
 composer install
