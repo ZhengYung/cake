@@ -1,7 +1,10 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-
+fetch('http://localhost:8081/api/conn.php')
+.then(res=>res.text())
+.then(result=>console.log(result))
+.catch(err=>console.log(`錯誤:${err}`))
 </script>
 
 <template>

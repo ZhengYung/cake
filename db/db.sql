@@ -1,0 +1,72 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- 主機： db
+-- 產生時間： 2024 年 02 月 28 日 12:56
+-- 伺服器版本： 10.4.8-MariaDB-1:10.4.8+maria~bionic
+-- PHP 版本： 8.2.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- 資料庫： `cake`
+--
+CREATE DATABASE IF NOT EXISTS `cake` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `cake`;
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `member`
+--
+
+CREATE TABLE `member` (
+  `Id` int(11) NOT NULL,
+  `Account` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Pwd` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `HomePhone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `MobilePhone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `Email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `BirthDay` date NOT NULL COMMENT '1999-01-01',
+  `Sex` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'M:男/F:女',
+  `Level` int(11) NOT NULL DEFAULT 1,
+  `LevelExpirationDate` timestamp NULL DEFAULT NULL,
+  `TotalSpent` int(11) NOT NULL DEFAULT 0,
+  `TotalSpenttExpirationDate` timestamp NULL DEFAULT NULL,
+  `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='會員資料表';
+
+--
+-- 已傾印資料表的索引
+--
+
+--
+-- 資料表索引 `member`
+--
+ALTER TABLE `member`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
+--
+
+--
+-- 使用資料表自動遞增(AUTO_INCREMENT) `member`
+--
+ALTER TABLE `member`
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
