@@ -7,6 +7,7 @@ if (
     isset($data->account) && !empty($data->account) &&
     isset($data->password) && !empty($data->password) &&
     isset($data->name) && !empty($data->name) &&
+    isset($data->homePhone) && !empty($data->homePhone) &&
     isset($data->mobilePhone) && !empty($data->mobilePhone) &&
     isset($data->email) && !empty($data->email) &&
     isset($data->sex) && !empty($data->sex) &&
@@ -14,9 +15,9 @@ if (
 ) {
     $account = $data->account;
     $password = $data->password;
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);//加密
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT); //加密
     $name = $data->name;
-    $homePhone = $data->homePhone ?? "";
+    $homePhone = $data->homePhone;
     $mobilePhone = $data->mobilePhone;
     $email = $data->email;
     $birthDay = $data->birthDay;
@@ -37,12 +38,12 @@ if (
             $response->message = "註冊成功";
         } else {
             $response->state = false;
-            $response->message = "註冊發生錯誤:".$stmt2->error;
+            $response->message = "註冊發生錯誤:" . $stmt2->error;
         }
     }
 } else {
     $response->state = false;
-    $response->message = '參數錯誤';
+    $response->message = '參數格式錯誤||空值';
 }
 header('Content-Type: application/json; charset=utf-8');
 echo json_encode($response);

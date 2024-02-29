@@ -1,6 +1,6 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+// import { RouterLink, RouterView } from 'vue-router'
+// import HelloWorld from './components/HelloWorld.vue'
 fetch('http://localhost:8081/api/conn.php')
 .then(res=>res.text())
 .then(result=>console.log(result))
@@ -46,7 +46,7 @@ fetch('http://localhost:8081/api/conn.php')
         <div class="collapse navbar-collapse" id="navbarMenu">
           <ul :class="[$route.name, 'navbar-nav']">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">品牌故事</a>
+              <a class="nav-link" aria-current="page" href="#">品牌故事</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">最新消息</a>
@@ -56,9 +56,6 @@ fetch('http://localhost:8081/api/conn.php')
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">購物須知</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">烘焙小教室</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">聯絡我們</a>
@@ -580,72 +577,6 @@ fetch('http://localhost:8081/api/conn.php')
     </symbol>
   </svg>
 </template>
-<style>
-:root {
-  --firstColor: #148cc2;
-  --secColor: #fac31f;
-  --fbColor: #3b5998;
-}
-
-/*mycss_reset_start*/
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  /* outline: 1px black solid; */
-}
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Noto Sans TC', sans-serif;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  vertical-align: bottom;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-/*mycss_reset_end*/
-
-/*Utility_Class_Start*/
-.color {
-  &-secColor {
-    color: var(--secColor);
-  }
-}
-
-/*Utility_Class_End*/
-
-*:has(.hide-text) {
-  position: relative
-}
-
-.hide-text {
-  position: absolute;
-  white-space: nowrap;
-  overflow: hidden;
-  text-indent: -101%;
-  z-index: -1;
-}
-</style>
 <style lang="scss" scoped>
 .funcBox,
 .navbar-toggler {
@@ -661,7 +592,6 @@ table {
     order: 0;
   }
 }
-
 .topNav {
   .logo svg {
     width: 110px;
@@ -704,7 +634,6 @@ table {
       svg {
         width: 18px
       }
-
       &::after {
         content: attr(data-count);
         display: flex;

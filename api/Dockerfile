@@ -23,3 +23,4 @@ RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 #兩行整合如下
 RUN docker-php-ext-configure gd --with-freetype=/usr --with-jpeg=/usr && \
     docker-php-ext-install gd
+
