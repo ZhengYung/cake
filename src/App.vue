@@ -1,10 +1,20 @@
 <script setup>
 // import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
-fetch('http://localhost:8081/api/conn.php')
-.then(res=>res.text())
-.then(result=>console.log(result))
-.catch(err=>console.log(`錯誤:${err}`))
+import { ref,onMounted } from 'vue';
+
+//store
+import { useCounterStore } from '@/stores/counter';
+const counterStore = useCounterStore();
+
+onMounted(()=>{
+  const btn=document.querySelector('#test');
+  btn.addEventListener('click',()=>{
+    //count++
+    counterStore.increment();
+    console.log(counterStore.count);
+  })
+});
 </script>
 
 <template>
@@ -22,43 +32,41 @@ fetch('http://localhost:8081/api/conn.php')
   </header>
 
   <RouterView /> -->
-  <header>
+  <header :class="[$route.name]">
     <nav class="topNav navbar navbar-expand-lg bg-body-tertiary">
       <div class="container-fluid">
-        <a class="logo navbar-brand me-auto" href="#"><svg>
-            <use xlink:href="#logo"></use>
-          </svg></a>
+        <a class="logo navbar-brand me-auto" href="#">
+          <h1>Logo</h1>
+        </a>
+        <button type="button" id="test">plus</button>
         <div class="funcBox">
           <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
           <a href="#"><i class="fa-brands fa-instagram"></i></a>
           <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"><i class="fa-regular fa-user"></i></a>
-          <a href="#" data-bs-toggle="modal" data-bs-target="#orderCheckModal"><svg>
-              <use xlink:href="#iconOrder"></use>
-            </svg></a>
-          <a href="#" class="cart" data-count="0" data-bs-toggle="modal" data-bs-target="#cartModal"><svg>
-              <use xlink:href="#iconCart"></use>
-            </svg></a>
+          <a href="#" class="cart" :data-count="counterStore.count" data-bs-toggle="modal" data-bs-target="#cartModal"><i
+              class="fa-solid fa-cart-shopping"></i></a>
         </div>
         <button class="navbar-toggler ms-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarMenu">
-          <ul :class="[$route.name, 'navbar-nav']">
+          <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">品牌故事</a>
+              <a :class="[$route.name === 'about' ? 'atcive' : '', 'nav-link']" aria-current="page" href="#">品牌故事</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">最新消息</a>
+              <a :class="[$route.name === 'news' ? 'atcive' : '', 'nav-link']" href="#">最新消息</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">產品介紹</a>
+              <a :class="[$route.name === 'products' || $route.name === 'product-detail' ? 'atcive' : '', 'nav-link']"
+                href="#">產品介紹</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">購物須知</a>
+              <a :class="[$route.name === 'faq' ? 'atcive' : '', 'nav-link']" href="#">購物須知</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">聯絡我們</a>
+              <a :class="[$route.name === 'contact' ? 'atcive' : '', 'nav-link']" href="#">聯絡我們</a>
             </li>
           </ul>
         </div>
@@ -592,6 +600,7 @@ fetch('http://localhost:8081/api/conn.php')
     order: 0;
   }
 }
+
 .topNav {
   .logo svg {
     width: 110px;
@@ -605,6 +614,7 @@ fetch('http://localhost:8081/api/conn.php')
     justify-content: center;
     align-items: center;
     column-gap: 30px;
+    font-size: 1.5rem;
 
     a {
       color: var(--firstColor);
@@ -612,33 +622,22 @@ fetch('http://localhost:8081/api/conn.php')
 
       &:hover {
         color: var(--secColor);
-
-        svg {
-          fill: var(--secColor);
-        }
       }
-    }
-
-    svg {
-      width: 16px;
-      aspect-ratio: 1;
-      fill: var(--firstColor);
-      transition: fill 0.5s ease-out 0s;
     }
 
     .cart {
       display: flex;
       justify-content: center;
       align-items: center;
+      position: relative;
+      font-size: 1.3rem;
 
-      svg {
-        width: 18px
-      }
       &::after {
         content: attr(data-count);
         display: flex;
         justify-content: center;
         align-items: flex-start;
+        font-size: 1rem;
         width: 18px;
         height: 18px;
         background-color: var(--firstColor);
@@ -647,5 +646,4 @@ fetch('http://localhost:8081/api/conn.php')
       }
     }
   }
-}
-</style>
+}</style>

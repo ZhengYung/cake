@@ -1,52 +1,50 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    //Front
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/front/AboutView.vue')
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('../views/front/AboutView.vue')
     },
     {
       path: '/news',
       name: 'news',
-      component: () => import('../views/NewsView.vue')
+      component: () => import('../views/front/NewsView.vue')
     },
     {
       path: '/products',
       name: 'products',
-      component: () => import('../views/ProductsView.vue')
+      component: () => import('../views/front/ProductsView.vue')
     },
     {
       path: '/products/:id',
       name: 'product-detail',
-      component: () => import('../views/ProductDetailView.vue')
+      component: () => import('../views/front/ProductDetailView.vue')
     },
     {
       path: '/faq',
       name: 'faq',
-      component: () => import('../views/FAQView.vue')
+      component: () => import('../views/front/FAQView.vue')
     },
     {
       path: '/contact',
       name: 'contact',
-      component: () => import('../views/ContactView.vue')
+      component: () => import('../views/front/ContactView.vue')
     },
     {
-      path: '/memberinfo',
+      path: '/memberinfo/:tabs',
       name: 'memberinfo',
-      component: () => import('../views/MemberInfoView.vue')
+      component: () => import('../views/front/MemberInfoView.vue')
     },
+    //Admin
   ]
 })
 
