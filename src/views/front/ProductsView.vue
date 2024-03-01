@@ -4,6 +4,6 @@
 
 <template>
   <main>
-    <h1>Products</h1>
+    <h1>所有產品</h1>
   </main>
 </template>
