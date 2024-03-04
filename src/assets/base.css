@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
 :root {
   --firstColor: #148cc2;
   --secColor: #fac31f;
@@ -9,16 +10,14 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  /* outline: 1px black solid; */
 }
 
 html,
 body {
   height: 100%;
   margin: 0;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: "Noto Sans TC", "微軟正黑體", sans-serif;
 }
-
 ul {
   list-style: none;
   margin: 0;
@@ -48,7 +47,9 @@ table {
     color: var(--secColor);
   }
 }
-
+.text-uppercase {
+  text-transform: uppercase;
+}
 /*Utility_Class_End*/
 
 *:has(.hide-text) {
