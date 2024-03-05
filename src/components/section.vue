@@ -16,10 +16,10 @@ const props =
 <template>
     <div class="sectionWrap container-fluid" :style="{ paddingBottom: pb }">
         <div class="row">
-            <div class="col-4">
+            <div class="col-3 p-0">
                 <img src="@/assets/img/penguin1.png" alt="" :style="{ translate: `0 calc(${pb}/2)` }">
             </div>
-            <div class="col-8 d-flex flex-column justify-content-center">
+            <div class="col-9 d-flex flex-column justify-content-center">
                 <em class="m-0 text-uppercase" :style="{ fontSize: fontSize }">
                     <slot name="first">XXXXXXX</slot>
                 </em>
@@ -42,28 +42,26 @@ const props =
 </template>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 
 .sectionWrap {
     display: flex;
     position: relative;
-
     &::after {
         position: absolute;
-        left:-30px;
+        left: -40px;
         bottom: 0;
         content: '';
         width: 90%;
         background: var(--secColor);
-        height: 18px;
+        height: 10%;
         clip-path: url(#bottomLine);
-        
     }
 
     @media(max-width:768px) {
         &::after {
             height: 10px;
-            bottom:5px;
+            bottom: 5px;
         }
     }
 
@@ -72,7 +70,8 @@ const props =
         line-height: 1;
     }
 
-    @media (max-width: 768px) {       
+    @media (max-width: 768px) {
+
         em,
         h2 {
             font-size: 22px !important;
@@ -89,7 +88,7 @@ const props =
             display: block;
             content: "";
             flex: 1 0 0;
-            height: 14px;
+            height: 30%;
             background-color: var(--firstColor);
             clip-path: url(#topLine);
         }

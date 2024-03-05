@@ -7,15 +7,15 @@ import sectionVue from '@/components/section.vue';
     <h1>首頁</h1>
     <div class="section1">
       <sectionVue :fontSize="'58px'" :pb="'30px'">
-          <template #first class="test">TProducts</template>
+        <template #first class="test">about</template>
 
-        <template #second>精選產品推薦</template>
+        <template #second>關於企鵝烘焙坊</template>
       </sectionVue>
     </div>
     <div class="section2">
-      <sectionVue :fontSize="'38px'" :pb="'30px'">
+      <sectionVue :fontSize="'38px'" :pb="'15px'">
 
-        <template #first>TProducts</template>
+        <template #first>Products</template>
 
         <template #second>精選產品推薦</template>
       </sectionVue>
@@ -26,7 +26,7 @@ import sectionVue from '@/components/section.vue';
 <style lang="scss" scoped>
 .section1 {
   margin: 0 auto;
-  max-width: 620px;
+  max-width: 600px;
   // outline: 1px black solid;
 }
 
