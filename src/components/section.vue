@@ -42,11 +42,10 @@ const props =
 </template>
 
 <style scoped lang="scss">
-
-
 .sectionWrap {
     display: flex;
     position: relative;
+
     &::after {
         position: absolute;
         left: -40px;

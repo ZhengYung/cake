@@ -4,7 +4,6 @@ import sectionVue from '@/components/section.vue';
 
 <template>
   <main>
-    <h1>首頁</h1>
     <div class="section1">
       <sectionVue :fontSize="'58px'" :pb="'30px'">
         <template #first class="test">about</template>
@@ -20,6 +19,7 @@ import sectionVue from '@/components/section.vue';
         <template #second>精選產品推薦</template>
       </sectionVue>
     </div>
+    
   </main>
 </template>
 

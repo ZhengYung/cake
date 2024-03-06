@@ -1,6 +1,8 @@
 <script setup>
 // import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
+import ham from './components/ham.vue';
+import modalBox from './components/modalBox.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
 //store
@@ -11,6 +13,12 @@ const scrollY = ref(window.scrollY);
 const handleScroll = () => {
   scrollY.value = window.scrollY;
 };
+function hideMenu() {
+  const navbarMenu = document.querySelector('#navbarMenu');
+  const svg = document.querySelector('.topNav__toggler svg');
+  navbarMenu.classList.remove('show');
+  svg.classList.remove('active');
+}
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
 });
@@ -20,16 +28,21 @@ onUnmounted(() => {
 </script>
 
 <template>
+  <Teleport to="body">
+    <modalBox :id="'loginModal'"></modalBox>
+    <modalBox :id="'orderModal'"></modalBox>
+    <modalBox :id="'cartModal'"></modalBox>
+  </Teleport>
   <header
-    :class="[{ isTop: scrollY === 0 && $route.name === 'home' }, $route.name === 'home' ? 'position-fixed w-100' : 'position-sticky']"
+    :class="[{ isTop: scrollY === 0 && $route.name === 'home' }, $route.name === 'home' ? 'position-fixed w-100' : 'position-sticky', 'top-0']"
     style="z-index: 999;">
-    <nav class="topNav navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <RouterLink to="/" class="logo navbar-brand me-auto">
+    <nav class="topNav navbar navbar-expand-lg p-0">
+      <div class="container-fluid" style="max-width: 1400px;">
+        <RouterLink to="/" @click="hideMenu" class="logo navbar-brand me-auto">
           <h1>Logo</h1>
         </RouterLink>
 
-        <div class="funcBox">
+        <div class="topNav__funcBox">
           <a href="#" target="_blank"><i class="fa-brands fa-square-facebook"></i></a>
           <a href="#" target="_blank"><i class="fa-brands fa-instagram"></i></a>
 
@@ -43,36 +56,37 @@ onUnmounted(() => {
           <button type="button" class="cart bg-transparent p-0 border-0" :data-count="counterStore.count"
             data-bs-toggle="modal" data-bs-target="#cartModal"><i class="fa-solid fa-cart-shopping"></i></button>
         </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
-          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <svg class="ham hamRotate ham8" viewBox="0 0 100 100" width="80" onclick="this.classList.toggle('active')">
-            <path class="line top"
-              d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20" />
-            <path class="line middle" d="m 30,50 h 40" />
-            <path class="line bottom"
-              d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20" />
-          </svg>
+        <button class="topNav__toggler navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarMenu" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <ham />
         </button>
-        <div class="navbar-collapse collapse" id="navbarMenu">
+        <div class="topNav__collapse navbar-collapse collapse" id="navbarMenu">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <RouterLink to="/about" :class="[{ active: $route.name === 'about' }]" aria-current="page">
+              <RouterLink to="/about" @click="hideMenu" :class="[{ active: $route.name === 'about' }]"
+                :aria-current="$route.name === 'about' ? 'page' : null">
                 品牌故事
               </RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/news" :class="[{ active: $route.name === 'news' }]">最新消息</RouterLink>
+              <RouterLink to="/news" @click="hideMenu" :class="[{ active: $route.name === 'news' }]"
+                :aria-current="$route.name === 'news' ? 'page' : null">最新消息</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/products"
-                :class="[{ 'active': $route.name === 'products' || $route.name === 'product-detail' }]">產品介紹
+              <RouterLink to="/products" @click="hideMenu"
+                :class="[{ 'active': $route.name === 'products' || $route.name === 'product-detail' }]"
+                :aria-current="$route.name === 'products' || $route.name === 'product-detail' ? 'page' : null">產品介紹
               </RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/faq" :class="[{ active: $route.name === 'faq' }]">購物須知</RouterLink>
+              <RouterLink to="/faq" @click="hideMenu" :class="[{ active: $route.name === 'faq' }]"
+                :aria-current="$route.name === 'faq' ? 'page' : null">購物須知</RouterLink>
             </li>
             <li class="nav-item">
-              <RouterLink to="/contact" :class="[{ 'atcive': $route.name === 'contact' }]">聯絡我們</RouterLink>
+              <RouterLink to="/contact" @click="hideMenu" :class="[{ 'active': $route.name === 'contact' }]"
+                :aria-current="$route.name === 'contact' ? 'page' : null">聯絡我們
+              </RouterLink>
             </li>
           </ul>
         </div>
@@ -96,150 +110,132 @@ onUnmounted(() => {
   </footer>
 </template>
 
+
 <style lang="scss" scoped>
-.ham {
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 400ms;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.hamRotate.active {
-  transform: rotate(45deg);
-}
-
-.line {
-  fill: none;
-  transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
-  stroke: #000;
-  stroke-width: 5.5;
-  stroke-linecap: round;
-}
-
-.ham8 .top {
-  stroke-dasharray: 40 160;
-}
-
-.ham8 .middle {
-  stroke-dasharray: 40 142;
-  transform-origin: 50%;
-  transition: transform 400ms;
-}
-
-.ham8 .bottom {
-  stroke-dasharray: 40 85;
-  transform-origin: 50%;
-  transition: transform 400ms, stroke-dashoffset 400ms;
-}
-
-.ham8.active .top {
-  stroke-dashoffset: -64px;
-}
-
-.ham8.active .middle {
-  //stroke-dashoffset: -20px;
-  transform: rotate(90deg);
-}
-
-.ham8.active .bottom {
-  stroke-dashoffset: -64px;
-}
-
 .banner {
   clip-path: url('#bannerClip');
+  background-size: cover;
+  background-position: center right;
+  // transition: none;
+  transition: background-image 0.5s ease-out 0s;
+
+  &.home {
+    height: 95vh;
+    background-image: url('@/assets/img/banner1.jpg');
+    background-size: cover;
+    background-position: bottom right;
+    background-attachment: fixed;
+  }
 
   &.about,
   &.news,
   &.contact {
     height: 50vh;
     background-image: url('@/assets/img/banner2.jpg');
-    background-size: cover;
-    background-position: center right;
   }
 
-  &.home {
-    height: 90vh;
-    background-image: url('@/assets/img/banner1.jpg');
-    background-size: cover;
-    background-position: bottom right;
+
+}
+
+header {
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  * {
+    color: var(--firstColor);
   }
-}
 
-.funcBox,
-.navbar-toggler {
-  order: 1;
-}
+  .topNav__collapse * {
+    color: white;
+  }
 
+  &.isTop {
+    background-color: transparent;
+    box-shadow: unset;
 
-.navbar-collapse {
-  order: 1;
-  background-color: var(--firstColor);
-  margin: 0 -52px;
-
-  ul {
-    height: 100vh;
-    text-align: center;
-
-    li {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      a {
-        --bs-link-color-rgb: 0, 0, 0;
-      }
+    * {
+      color: white;
     }
-  }
-}
 
-@media (min-width: 992px) {
-  .navbar-expand-lg .navbar-collapse {
-    order: 0;
-    background-color: unset;
-    padding: unset;
-    margin: unset;
+    .topNav__toggler :deep(svg path) {
+      stroke: white;
+    }
 
-    ul {
-      height: auto;
+    .topNav__collapse .nav-item a {
+      text-shadow: 0 0 10px #2721b59e;
     }
   }
 }
 
 .topNav {
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 0 40px;
-  transition: background-color 0.5s ease-out 0s, box-shadow 0.5s ease-out 0s, padding 0.5s ease-out 0s;
 
-  .navbar-toggler {
-    margin-left: 40px;
-    padding: 0;
+  &__funcBox,
+  &__toggler {
+    order: 1;
+  }
 
-    &:focus {
-      box-shadow: none;
+  &__collapse {
+    order: 1;
+    margin: 0 -15px;
+    transition: none;
+
+    &.show ul {
+      background-color: var(--firstColor);
+    }
+
+    ul {
+      height: 100vh;
+      text-align: center;
+      margin: 0 auto;
+
+      li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          --bs-link-color-rgb: 0, 0, 0;
+          padding: 10px 18px;
+
+          &::after {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: 0 auto;
+            display: block;
+            content: '';
+            background-color: var(--secColor);
+            width: 0;
+            height: 0;
+          }
+
+          &.active::after {
+            width: 80%;
+            height: 5px;
+          }
+
+          @media (hover:hover) {
+            &:hover::after {
+              width: 80%;
+              height: 5px;
+            }
+          }
+        }
+      }
     }
   }
 
-  .funcBox {
+  &__funcBox {
     display: flex;
     justify-content: center;
     align-items: center;
     column-gap: 30px;
     font-size: 1.5rem;
-
-    :where(a, button) {
-      i {
-        color: var(--firstColor);
-        transition: color 0.5s ease-out 0s;
-      }
-
-      &:hover i {
-        color: var(--secColor);
-      }
-    }
 
     .cart {
       display: flex;
@@ -263,22 +259,33 @@ onUnmounted(() => {
       }
     }
   }
+
+  &__toggler {
+    margin-left: 40px;
+    padding: 0;
+    border: none;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
 }
 
-.isTop .topNav {
-  background-color: transparent;
-  box-shadow: none;
-  padding-top: 40px;
-
-  :where(a, button) {
-    color: white;
-
-    i {
-      color: white;
+@media (min-width: 992px) {
+  header:not(.isTop) {
+    .topNav__collapse * {
+      color: black;
     }
+  }
 
-    &:hover i {
-      color: var(--firstColor);
+  .navbar-expand-lg .navbar-collapse.topNav__collapse {
+    order: 0;
+    margin: unset;
+
+    ul {
+      transition: none;
+      height: auto;
+      background-color: unset;
     }
   }
 }
