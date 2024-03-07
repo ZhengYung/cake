@@ -9,8 +9,7 @@ const props =
 </script>
 
 <template>
-    <!-- 測試時在最外層div 移除fade & 添加d-block -->
-    <div class="modal fade" :id="id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" :id="id" tabindex="-1" :aria-labelledby="id" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header d-block text-end border-0">
@@ -26,10 +25,12 @@ const props =
 </template>
 
 <style scoped lang="scss">
-.modal-content{
+.modal-content {
     max-width: 400px;
     border-radius: 0;
+    overflow: hidden;
 }
+
 .modal-body {
     padding: 0 40px 30px;
 }
