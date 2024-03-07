@@ -1,23 +1,41 @@
 <script setup>
+//vue
 // import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
-import ham from './components/ham.vue';
-import modalBox from './components/modalBox.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
-//store
-import { useCounterStore } from '@/stores/counter';
-const counterStore = useCounterStore();
-const scrollY = ref(window.scrollY);
+//components元件
+import ham from './components/ham.vue';
+import modalBox from './components/modalBox.vue';
+import defaultBtn from '@/components/defaultBtn.vue';
+import moreBtn from '@/components/moreBtn.vue';
 
-const handleScroll = () => {
-  scrollY.value = window.scrollY;
-};
+//store
+import { useCartStore } from './stores/cart';
+const cartStore = useCartStore();
+
+//切換頁面時將 navbarMenu & 漢堡選單 改為關閉狀態
 function hideMenu() {
   const navbarMenu = document.querySelector('#navbarMenu');
   const svg = document.querySelector('.topNav__toggler svg');
+
   navbarMenu.classList.remove('show');
   svg.classList.remove('active');
+}
+//登入按鈕事件
+function login() {
+  console.log('loginBtn Click');
+}
+//監測windw scroll-bar 位置
+const scrollY = ref(window.scrollY);
+const handleScroll = () => {
+  scrollY.value = window.scrollY;
+};
+
+//註冊按鈕事件
+function register() {
+  // const modal = new bootstrap.Modal(document.querySelector('#loginModal'));
+  // console.log(modal);
 }
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
@@ -29,9 +47,46 @@ onUnmounted(() => {
 
 <template>
   <Teleport to="body">
-    <modalBox :id="'loginModal'"></modalBox>
-    <modalBox :id="'orderModal'"></modalBox>
-    <modalBox :id="'cartModal'"></modalBox>
+    <modalBox :id="'loginModal'">
+      <template #modal-body>
+        <div class="login">
+          <h2 class="mb-4 text-center fs-6 fw-normal text-muted">會員登入</h2>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="account" placeholder="">
+            <label for="account" class="text-muted">帳號</label>
+          </div>
+          <div class="form-floating">
+            <input type="password" class="form-control" id="pwd" placeholder="">
+            <label for="pwd" class="text-muted">密碼</label>
+          </div>
+          <div class="btnBox">
+            <moreBtn @click="login" :bg="'var(--secColor)'">登&emsp;入</moreBtn>
+            <defaultBtn class="fs-6" :bg="'var(--fbColor)'">使用facebook登入</defaultBtn>
+          </div>
+          <div class="quickBackBox">
+            <RouterLink @click="register" to="/register">立即加入</RouterLink>
+            <button type="button">忘記密碼?</button>
+          </div>
+        </div>
+      </template>
+    </modalBox>
+    <modalBox :id="'orderModal'">
+
+      <template #modal-body>
+      </template>
+    </modalBox>
+    <modalBox :id="'cartModal'">
+
+      <template #title>
+        <div class="cartTitle">
+          <h2>你的購物車總計<span>{{ cartStore.count }}</span>件商品</h2>
+        </div>
+      </template>
+
+      <template #modal-body>
+
+      </template>
+    </modalBox>
   </Teleport>
   <header
     :class="[{ isTop: scrollY === 0 && $route.name === 'home' }, $route.name === 'home' ? 'position-fixed w-100' : 'position-sticky', 'top-0']"
@@ -53,7 +108,7 @@ onUnmounted(() => {
           <button class="bg-transparent p-0 border-0" type="button" data-bs-toggle="modal"
             data-bs-target="#orderModal"><i class="fa-solid fa-book"></i>
           </button>
-          <button type="button" class="cart bg-transparent p-0 border-0" :data-count="counterStore.count"
+          <button type="button" class="cart bg-transparent p-0 border-0" :data-count="cartStore.count"
             data-bs-toggle="modal" data-bs-target="#cartModal"><i class="fa-solid fa-cart-shopping"></i></button>
         </div>
         <button class="topNav__toggler navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -112,6 +167,54 @@ onUnmounted(() => {
 
 
 <style lang="scss" scoped>
+//覆寫bootstrap start
+.form-control:focus {
+  box-shadow: none;
+}
+
+.login {
+
+  .form-floating>.form-control,
+  .form-floating>.form-control-plaintext,
+  .form-floating>.form-select {
+    height: 3rem;
+    min-height: unset;
+  }
+
+  .form-floating>label {
+    background: white;
+    height: auto;
+    padding: 0;
+    translate: 50% 80%;
+    line-height: 1;
+  }
+
+  .form-floating>.form-control-plaintext~label::after,
+  .form-floating>.form-control:focus~label::after,
+  .form-floating>.form-control:not(:placeholder-shown)~label::after,
+  .form-floating>.form-select~label::after {
+    content: none;
+  }
+
+  .form-floating>.form-control-plaintext~label,
+  .form-floating>.form-control:focus~label,
+  .form-floating>.form-control:not(:placeholder-shown)~label,
+  .form-floating>.form-select~label {
+    transform: scale(.85) translateY(-1.6rem) translateX(.15rem);
+  }
+
+  .form-floating>.form-control-plaintext:focus,
+  .form-floating>.form-control-plaintext:not(:placeholder-shown),
+  .form-floating>.form-control:focus,
+  .form-floating>.form-control:not(:placeholder-shown) {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+
+//覆寫bootstrap end
+
 .banner {
   clip-path: url('#bannerClip');
   background-size: cover;
@@ -135,6 +238,55 @@ onUnmounted(() => {
   }
 
 
+}
+
+.btnBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+  margin-top: 30px;
+
+  button {
+    flex: 1 0 0px;
+    max-width: 160px;
+  }
+}
+
+.quickBackBox {
+  margin-top: 20px;
+  display: flex;
+  justify-content: end;
+
+  * {
+    color: gray;
+    line-height: 1;
+    border: none;
+    background-color: unset;
+    padding: 0 6px;
+  }
+
+  @media (hover:hover) {
+    *:hover {
+      color: black;
+    }
+
+    :nth-child(2) {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        display: block;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        height: 100%;
+        background-color: gray;
+      }
+    }
+  }
 }
 
 header {
@@ -287,6 +439,50 @@ header {
       height: auto;
       background-color: unset;
     }
+  }
+}
+
+.cartTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+
+  &::before {
+    content: "\f07a";
+    font-weight: 900;
+    font-family: "Font Awesome 6 Free";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    scale: -1 1;
+    background-color: var(--secColor);
+    border-radius: 50%;
+    font-size: 18px;
+    width: 40px;
+    aspect-ratio: 1;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    margin: 0;
+
+    span {
+      color: var(--secColor);
+      margin: 0 8px;
+    }
+  }
+}
+
+@keyframes modalBodySlideUp {
+  0% {
+    transform: translateY(150%);
+  }
+
+  100% {
+    transform: translateY(0%);
   }
 }
 </style>

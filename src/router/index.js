@@ -43,7 +43,12 @@ const router = createRouter({
       path: '/memberinfo/:tabs',
       name: 'memberinfo',
       component: () => import('../views/front/MemberInfoView.vue')
-    },
+    }, 
+    {
+      path:'/register',
+      name:'register',
+      component:()=> import('../views/front/Register.vue')
+    }
     //Admin
   ]
 })

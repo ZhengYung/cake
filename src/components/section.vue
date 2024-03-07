@@ -3,7 +3,7 @@ const props =
     defineProps({
         fontSize: {
             type: String,
-            required: true
+            required: true//要求父組件必須提供此prop值
         },
         pb: {
             type: String,
