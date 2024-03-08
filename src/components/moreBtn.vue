@@ -1,5 +1,5 @@
 <script setup>
-import defaultBtn from './defaultBtn.vue';
+import DefaultBtn from './DefaultBtn.vue';
 defineProps({
     bg: {
         type: String,
@@ -10,9 +10,9 @@ defineProps({
 </script>
 
 <template>
-    <defaultBtn :bg="bg" class="moreBtn">
+    <DefaultBtn :bg="bg" class="moreBtn">
         <slot></slot>
-    </defaultBtn>
+    </DefaultBtn>
 </template>
 
 <style scoped lang="scss">

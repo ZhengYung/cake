@@ -1,4 +1,5 @@
 <script setup>
+
 //vue
 // import { RouterLink, RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
@@ -6,12 +7,10 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import router from '@/router';
 
 //components元件
-
-import ham from '@/components/ham.vue';
-import modalBox from '@/components/modalBox.vue';
-import defaultBtn from '@/components/defaultBtn.vue';
-import moreBtn from '@/components/moreBtn.vue';
-
+import Ham from '@/components/Ham.vue';
+import ModalBox from '@/components/ModalBox.vue';
+import DefaultBtn from '@/components/DefaultBtn.vue';
+import MoreBtn from '@/components/MoreBtn.vue';
 //store
 import { useCartStore } from '@/stores/cart';
 const cartStore = useCartStore();
@@ -73,7 +72,7 @@ onUnmounted(() => {
 
 <template>
     <Teleport to="body">
-        <modalBox :id="'loginModal'">
+        <ModalBox :id="'loginModal'">
             <template #modal-body>
                 <div ref="loginArea" class="login d-block">
                     <h2 class="mb-4 text-center fs-6 fw-normal text-muted">會員登入</h2>
@@ -86,10 +85,11 @@ onUnmounted(() => {
                         <label for="pwd" class="text-muted">密碼</label>
                     </div>
                     <div class="btnBox">
-                        <moreBtn @click="login" :bg="'var(--secColor)'">登&emsp;入</moreBtn>
-                        <defaultBtn class="fs-6" :bg="'var(--fbColor)'">使用facebook登入</defaultBtn>
+                        <MoreBtn @click="login" :bg="'var(--secColor)'">登&emsp;入</MoreBtn>
+                        <DefaultBtn class="fs-6" :bg="'var(--fbColor)'">使用facebook登入</DefaultBtn>
                     </div>
                     <div class="quickBackBox">
+
                         <button type="button" @click="register" data-bs-dismiss="modal">立即加入</button>
                         <button type="button" @click="loginModalChange">忘記密碼?</button>
                     </div>
@@ -101,20 +101,20 @@ onUnmounted(() => {
                         <label for="account" class="text-muted">電子信箱</label>
                     </div>
                     <div class="btnBox">
-                        <moreBtn @click="login" :bg="'var(--secColor)'">確&emsp;認</moreBtn>
+                        <MoreBtn @click="login" :bg="'var(--secColor)'">確&emsp;認</MoreBtn>
                     </div>
                     <div class="quickBackBox">
                         <button type="button" @click="loginModalChange">返回登入</button>
                     </div>
                 </div>
             </template>
-        </modalBox>
-        <modalBox :id="'orderModal'">
+        </ModalBox>
+        <ModalBox :id="'orderModal'">
 
             <template #modal-body>
             </template>
-        </modalBox>
-        <modalBox :id="'cartModal'">
+        </ModalBox>
+        <ModalBox :id="'cartModal'">
 
             <template #title>
                 <div class="cartTitle">
@@ -125,7 +125,7 @@ onUnmounted(() => {
             <template #modal-body>
 
             </template>
-        </modalBox>
+        </ModalBox>
     </Teleport>
     <header
         :class="[{ isTop: scrollY === 0 && $route.name === 'home' }, $route.name === 'home' ? 'position-fixed w-100' : 'position-sticky', 'top-0']"
@@ -154,7 +154,7 @@ onUnmounted(() => {
                 <button class="topNav__toggler navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarMenu" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <ham />
+                    <Ham/>
                 </button>
                 <div class="topNav__collapse navbar-collapse collapse" id="navbarMenu">
                     <ul class="navbar-nav">
