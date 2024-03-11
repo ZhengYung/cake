@@ -1,5 +1,63 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { useDisplay } from 'vuetify'
+import Menu from '@/components/admin/Menu.vue'
+const drawer = ref(false)
+const rail = ref(false)
+const { mobile } = useDisplay()
 
-<template></template>
+const openDrawer = () => {
+    if (!mobile.value) {
+        rail.value = !rail.value;
+    }
+    else {
+        rail.value = false;
+        drawer.value = !drawer.value;
+    }
+}
+onMounted(() => {
+    if (!mobile.value) {
+        rail.value = true;
+        drawer.value = true;
+    }
+});
+onUnmounted(() => { })
+</script>
+
+<template>
+    <v-app id="inspire">
+        <v-navigation-drawer v-model="drawer" expand-on-hover :rail="rail">
+            <!-- Brand Logo -->
+            <v-list>
+                <v-list-item prepend-avatar="@/assets/img/AdminLTELogo.png" title="後臺管理"></v-list-item>
+            </v-list>
+            <!-- v-divider 分隔線 -->
+            <v-divider></v-divider>
+            <!-- user panel -->
+            <v-list>
+                <v-list-item prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg" title="John Leider"
+                    subtitle="sandra_a88@gmailcom"></v-list-item>
+            </v-list>
+            <v-divider></v-divider>
+            <!-- meun -->
+            <Menu />
+        </v-navigation-drawer>
+
+        <v-app-bar>
+            <v-app-bar-nav-icon @click="openDrawer"></v-app-bar-nav-icon>
+            <v-app-bar-title>Application</v-app-bar-title>
+        </v-app-bar>
+
+        <v-main>
+            <!-- <v-list-item>
+                <template #prepend>
+                    <v-img width="50" aspect-ratio="1/1" cover src="@/assets/img/AdminLTELogo.png"></v-img>
+                </template>
+<v-list-item-title>後臺管理</v-list-item-title>
+</v-list-item> -->
+
+        </v-main>
+    </v-app>
+</template>
 
 <style scoped lang="scss"></style>
