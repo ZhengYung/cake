@@ -22,6 +22,20 @@ onMounted(() => {
     }
 });
 onUnmounted(() => { })
+
+const open = ref(['Users']);
+const admins = [
+    ['Management', 'mdi-account-multiple-outline'],
+    ['Settings', 'mdi-cog-outline'],
+]
+const cruds = [
+    ['Create', 'mdi-plus-outline'],
+    ['Read', 'mdi-file-outline'],
+    ['Update', 'mdi-update'],
+    ['Delete', 'mdi-delete'],
+]
+
+
 </script>
 
 <template>
@@ -55,7 +69,7 @@ onUnmounted(() => { })
                 </template>
 <v-list-item-title>後臺管理</v-list-item-title>
 </v-list-item> -->
-
+            
         </v-main>
     </v-app>
 </template>
