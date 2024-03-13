@@ -7,10 +7,12 @@ import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue({ 
+    vue({
       template: { transformAssetUrls }//讓vue能支援vuetify透過alias載入圖片
     }),
-    vuetify(),
+    vuetify({
+      autoImport: true,
+    }),
   ],
   resolve: {
     alias: {

@@ -143,7 +143,16 @@ onUnmounted(() => {
                     <button type="button" class="bg-transparent p-0 border-0" data-bs-toggle="modal"
                         data-bs-target="#loginModal"><i class="fa-regular fa-user"></i>
                     </button>
-
+                    <div class="dropdown loginDropdown">
+                        <button class="dropdown-toggle loginDropdownBtn" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                        </button>
+                        <v-list class="dropdown-menu position-absolute" density="comfortable" nav>
+                            <v-list-item title="會員中心" value="MemberCenter"></v-list-item>
+                            <v-list-item to="/admin/salesOverview" title="後臺管理" value="Admin"></v-list-item>
+                            <v-list-item title="登出" value="Logout"></v-list-item>
+                        </v-list>
+                    </div>
                     <button type="button" class="bg-transparent p-0 border-0" data-bs-toggle="modal"
                         data-bs-target="#orderModal"><i class="fa-solid fa-book"></i>
                     </button>
@@ -154,7 +163,7 @@ onUnmounted(() => {
                 <button class="topNav__toggler navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarMenu" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
-                    <Ham/>
+                    <Ham />
                 </button>
                 <div class="topNav__collapse navbar-collapse collapse" id="navbarMenu">
                     <ul class="navbar-nav">
@@ -430,6 +439,28 @@ header {
         align-items: center;
         column-gap: 30px;
         font-size: 1.5rem;
+
+        .loginDropdownBtn {
+            display: flex;
+
+            &::after {
+                content: "\f007";
+                font-weight: 400;
+                font-family: "Font Awesome 6 Free";
+                border: none;
+            }
+        }
+
+        .loginDropdown .dropdown-menu {
+            display: block;
+            transition: all 0.2s ease-out 0s;
+            transform-origin: left top;
+            scale: 0;
+
+            &.show {
+                scale: 1;
+            }
+        }
 
         .cart {
             display: flex;

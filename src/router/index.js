@@ -61,13 +61,205 @@ const router = createRouter({
       path: '/admin',
       name: 'admin',
       component: () => import('../views/admin/Layout.vue'),
-      // children: [
-      //   {
-      //     path: '',
-      //     name: 'adminHome',
-      //     component: () => import('../views/admin/Home.vue'),
-      //   }
-      // ]
+      children: [
+        {
+          path: 'salesOverview',
+          name: '',
+          component: () => import('../views/admin/SalesOverview.vue'),
+        },
+        //品牌故事
+        {
+          path: 'story',
+          name: '',
+          component: () => import('../views/admin/story/List.vue'),
+        },
+        {
+          path: 'story/add',
+          name: '',
+          component: () => import('../views/admin/story/Add.vue'),
+        },
+        {
+          path: 'story/edit',
+          name: '',
+          component: () => import('../views/admin/story/Edit.vue'),
+        },
+        //消息管理
+        {
+          path: 'newsLayer',
+          name: '',
+          component: () => import('../views/admin/news/layer/List.vue'),
+        },
+        {
+          path: 'newsLayer/add',
+          name: '',
+          component: () => import('../views/admin/news/layer/Add.vue'),
+        },
+        {
+          path: 'newsLayer/edit',
+          name: '',
+          component: () => import('../views/admin/news/layer/Edit.vue'),
+        },
+        {
+          path: 'news',
+          name: '',
+          component: () => import('../views/admin/news/List.vue'),
+        },
+        {
+          path: 'news/add',
+          name: '',
+          component: () => import('../views/admin/news/Add.vue'),
+        },
+        {
+          path: 'news/edit',
+          name: '',
+          component: () => import('../views/admin/news/Edit.vue'),
+        },
+        //產品管理
+        {
+          path: 'productLayer',
+          name: '',
+          component: () => import('../views/admin/product/layer/List.vue'),
+        },
+        {
+          path: 'productLayer/add',
+          name: '',
+          component: () => import('../views/admin/product/layer/Add.vue'),
+        },
+        {
+          path: 'productLayer/edit',
+          name: '',
+          component: () => import('../views/admin/product/layer/Edit.vue'),
+        },
+        {
+          path: 'product',
+          name: '',
+          component: () => import('../views/admin/product/List.vue'),
+        },
+        {
+          path: 'product/add',
+          name: '',
+          component: () => import('../views/admin/product/Add.vue'),
+        },
+        {
+          path: 'product/edit',
+          name: '',
+          component: () => import('../views/admin/product/Edit.vue'),
+        },
+        //購物須知
+        {
+          path: 'faqLayer',
+          name: '',
+          component: () => import('../views/admin/faq/layer/List.vue'),
+        },
+        {
+          path: 'faqLayer/add',
+          name: '',
+          component: () => import('../views/admin/faq/layer/Add.vue'),
+        },
+        {
+          path: 'faqLayer/edit',
+          name: '',
+          component: () => import('../views/admin/faq/layer/Edit.vue'),
+        },
+        {
+          path: 'faq',
+          name: '',
+          component: () => import('../views/admin/faq/List.vue'),
+        },
+        {
+          path: 'faq/add',
+          name: '',
+          component: () => import('../views/admin/faq/Add.vue'),
+        },
+        {
+          path: 'faq/edit',
+          name: '',
+          component: () => import('../views/admin/faq/Edit.vue'),
+        },
+        //訂單管理
+        {
+          path: 'order',
+          name: '',
+          component: () => import('../views/admin/order/List.vue'),
+        },
+        {
+          path: 'order/add',
+          name: '',
+          component: () => import('../views/admin/order/Add.vue'),
+        },
+        {
+          path: 'order/edit',
+          name: '',
+          component: () => import('../views/admin/order/Edit.vue'),
+        },
+        //會員管理
+        {
+          path: 'memberLevel',
+          name: '',
+          component: () => import('../views/admin/member/level/List.vue'),
+        },
+        {
+          path: 'memberLevel/add',
+          name: '',
+          component: () => import('../views/admin/member/level/Add.vue'),
+        },
+        {
+          path: 'memberLevel/edit',
+          name: '',
+          component: () => import('../views/admin/member/level/Edit.vue'),
+        },
+        {
+          path: 'member',
+          name: '',
+          component: () => import('../views/admin/member/List.vue'),
+        },
+        {
+          path: 'member/add',
+          name: '',
+          component: () => import('../views/admin/member/Add.vue'),
+        },
+        {
+          path: 'member/edit',
+          name: '',
+          component: () => import('../views/admin/member/Edit.vue'),
+        },
+        {
+          path: 'memberAnalyze',
+          name: '',
+          component: () => import('../views/admin/member/Analyze.vue'),
+        },
+        //管理者
+        {
+          path: 'adminLevel',
+          name: '',
+          component: () => import('../views/admin/admin/level/List.vue'),
+        },
+        {
+          path: 'adminLevel/add',
+          name: '',
+          component: () => import('../views/admin/admin/level/Add.vue'),
+        },
+        {
+          path: 'adminLevel/edit',
+          name: '',
+          component: () => import('../views/admin/admin/level/Edit.vue'),
+        },
+        {
+          path: 'admin',
+          name: '',
+          component: () => import('../views/admin/admin/List.vue'),
+        },
+        {
+          path: 'admin/add',
+          name: '',
+          component: () => import('../views/admin/admin/Add.vue'),
+        },
+        {
+          path: 'admin/edit',
+          name: '',
+          component: () => import('../views/admin/admin/Edit.vue'),
+        },
+      ]
     }
   ]
 })

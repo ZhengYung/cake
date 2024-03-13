@@ -40,7 +40,7 @@ const cruds = [
 
 <template>
     <v-app id="inspire">
-        <v-navigation-drawer v-model="drawer" expand-on-hover :rail="rail">
+        <v-navigation-drawer v-model="drawer" expand-on-hover :rail="rail" rail-width="60">
             <!-- Brand Logo -->
             <v-list>
                 <v-list-item prepend-avatar="@/assets/img/AdminLTELogo.png" title="後臺管理"></v-list-item>
@@ -60,18 +60,23 @@ const cruds = [
         <v-app-bar>
             <v-app-bar-nav-icon @click="openDrawer"></v-app-bar-nav-icon>
             <v-app-bar-title>Application</v-app-bar-title>
+            <v-btn>123</v-btn>
         </v-app-bar>
 
         <v-main>
-            <!-- <v-list-item>
+            <RouterView />
+        </v-main>
+    </v-app>
+    <!-- <v-list-item>
                 <template #prepend>
                     <v-img width="50" aspect-ratio="1/1" cover src="@/assets/img/AdminLTELogo.png"></v-img>
                 </template>
 <v-list-item-title>後臺管理</v-list-item-title>
 </v-list-item> -->
-            
-        </v-main>
-    </v-app>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+:deep(.v-list-item-title) {
+    font-size: 16px;
+}
+</style>
