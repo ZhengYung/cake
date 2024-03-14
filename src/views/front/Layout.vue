@@ -77,12 +77,12 @@ onUnmounted(() => {
                 <div ref="loginArea" class="login d-block">
                     <h2 class="mb-4 text-center fs-6 fw-normal text-muted">會員登入</h2>
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="account" placeholder="">
-                        <label for="account" class="text-muted">帳號</label>
+                        <input type="text" class="form-control" id="login_account" placeholder="">
+                        <label for="login_account" class="text-muted">帳號</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="pwd" placeholder="">
-                        <label for="pwd" class="text-muted">密碼</label>
+                        <input type="password" class="form-control" id="login_pwd" placeholder="">
+                        <label for="login_pwd" class="text-muted">密碼</label>
                     </div>
                     <div class="btnBox">
                         <MoreBtn @click="login" :bg="'var(--secColor)'">登&emsp;入</MoreBtn>
@@ -97,8 +97,8 @@ onUnmounted(() => {
                 <div ref="forgetArea" class="forget d-none">
                     <h2 class="mb-4 text-center fs-6 fw-normal text-muted">忘記密碼</h2>
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="email" placeholder="">
-                        <label for="account" class="text-muted">電子信箱</label>
+                        <input type="email" class="form-control" id="forget_email" placeholder="">
+                        <label for="forget_email" class="text-muted">電子信箱</label>
                     </div>
                     <div class="btnBox">
                         <MoreBtn @click="login" :bg="'var(--secColor)'">確&emsp;認</MoreBtn>
@@ -117,11 +117,11 @@ onUnmounted(() => {
                 <div class="order">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="order" placeholder="">
-                        <label for="account" class="text-muted">訂單編號</label>
+                        <label for="order" class="text-muted">訂單編號</label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="phone" placeholder="">
-                        <label for="pwd" class="text-muted">手機號碼</label>
+                        <input type="number" class="form-control" id="order_phone" placeholder="">
+                        <label for="order_phone" class="text-muted">手機號碼</label>
                     </div>
                     <div class="btnBox">
                         <MoreBtn @click="login" :bg="'var(--secColor)'">查&emsp;詢</MoreBtn>
@@ -163,7 +163,7 @@ onUnmounted(() => {
                             aria-expanded="false">
                         </button>
                         <v-list class="dropdown-menu position-absolute" density="comfortable" nav>
-                            <v-list-item title="會員中心" value="MemberCenter"></v-list-item>
+                            <v-list-item to="/memberinfo/1" title="會員中心" value="MemberCenter"></v-list-item>
                             <v-list-item to="/admin/salesOverview" title="後臺管理" value="Admin"></v-list-item>
                             <v-list-item title="登出" value="Logout"></v-list-item>
                         </v-list>
