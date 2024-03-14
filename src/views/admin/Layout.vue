@@ -60,7 +60,14 @@ const cruds = [
         <v-app-bar>
             <v-app-bar-nav-icon @click="openDrawer"></v-app-bar-nav-icon>
             <v-app-bar-title>Application</v-app-bar-title>
-            <v-btn>123</v-btn>
+            <v-btn to="/" append-icon="fa-solid fa-shop">
+                回前台
+                <template v-slot:append>
+                    <v-icon color="warning"></v-icon>
+                </template>
+            </v-btn>
+            <v-btn>登出</v-btn>
+
         </v-app-bar>
 
         <v-main>

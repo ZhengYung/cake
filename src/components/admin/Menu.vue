@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 const open = ref([]);
+
 </script>
 <template>
     <v-list v-model:opened="open" density="comfortable" nav>
@@ -12,8 +13,8 @@ const open = ref([]);
         <v-list-item to="/admin/story" prepend-icon="fa-solid fa-pager" title="品牌故事" value="Story"></v-list-item>
         <v-list-group value="News">
             <template #activator="{ props }">
-                <v-list-item prepend-icon="fa-regular fa-newspaper" v-bind="props"
-                    title="消息管理"></v-list-item>
+                <v-list-item :class="{ 'currentGroup': $route.path.startsWith('/admin/news') }"
+                    prepend-icon="fa-regular fa-newspaper" v-bind="props" title="消息管理"></v-list-item>
             </template>
             <v-list-item to="/admin/newsLayer" prepend-icon="fa-regular fa-circle" title="類別"
                 value="NewsLayers"></v-list-item>
@@ -22,7 +23,8 @@ const open = ref([]);
         </v-list-group>
         <v-list-group value="Prodct">
             <template #activator="{ props }">
-                <v-list-item prepend-icon="fa-solid fa-cookie-bite" v-bind="props" title="產品管理"></v-list-item>
+                <v-list-item :class="{ 'currentGroup': $route.path.startsWith('/admin/product') }"
+                    prepend-icon="fa-solid fa-cookie-bite" v-bind="props" title="產品管理"></v-list-item>
             </template>
             <v-list-item to="/admin/productLayer" prepend-icon="fa-regular fa-circle" title="類別"
                 value="ProductLayers"></v-list-item>
@@ -31,7 +33,8 @@ const open = ref([]);
         </v-list-group>
         <v-list-group value="FAQ">
             <template #activator="{ props }">
-                <v-list-item prepend-icon="fa-solid fa-clipboard-question" v-bind="props" title="購物須知"></v-list-item>
+                <v-list-item :class="{ 'currentGroup': $route.path.startsWith('/admin/faq') }"
+                    prepend-icon="fa-solid fa-clipboard-question" v-bind="props" title="購物須知"></v-list-item>
             </template>
             <v-list-item to="/admin/faqLayer" prepend-icon="fa-regular fa-circle" title="類別"
                 value="FAQLayers"></v-list-item>
@@ -82,9 +85,13 @@ const open = ref([]);
 .v-list-item--nav {
     column-gap: 10px !important;
 }
-</style>
-<style scoped lang="scss">
+
 .currentGroup {
-    background: red !important;
+    background: rgb(39, 39, 109) !important;
+
+    :deep(*) {
+        color: white;
+    }
 }
 </style>
+<style scoped lang="scss"></style>

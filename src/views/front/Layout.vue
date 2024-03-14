@@ -110,8 +110,23 @@ onUnmounted(() => {
             </template>
         </ModalBox>
         <ModalBox :id="'orderModal'">
-
+            <template #title>
+                <h2 class="fs-6 fw-normal text-center">訂單查詢</h2>
+            </template>
             <template #modal-body>
+                <div class="order">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="order" placeholder="">
+                        <label for="account" class="text-muted">訂單編號</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="password" class="form-control" id="phone" placeholder="">
+                        <label for="pwd" class="text-muted">手機號碼</label>
+                    </div>
+                    <div class="btnBox">
+                        <MoreBtn @click="login" :bg="'var(--secColor)'">查&emsp;詢</MoreBtn>
+                    </div>
+                </div>
             </template>
         </ModalBox>
         <ModalBox :id="'cartModal'">
@@ -223,7 +238,8 @@ onUnmounted(() => {
 }
 
 .login,
-.forget {
+.forget,
+.order {
 
     .form-floating>.form-control,
     .form-floating>.form-control-plaintext,
