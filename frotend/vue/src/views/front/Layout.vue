@@ -230,7 +230,16 @@ onUnmounted(() => {
         <div class="footer__item"></div>
     </footer>
 </template>
-
+<script>
+export default {
+    data: () => ({
+        fav: true,
+        menu: false,
+        message: false,
+        hints: true,
+    }),
+}
+</script>
 <style lang="scss" scoped>
 //覆寫bootstrap start
 .form-control:focus {
