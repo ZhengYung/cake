@@ -1,19 +1,13 @@
 <script setup>
-import { ref } from 'vue';
-
-const desserts = ref([
-    { name: 'Frozen Yogurt', calories: 159 },
-    { name: 'Ice cream sandwich', calories: 237 },
-    { name: 'Eclair', calories: 262 },
-    { name: 'Cupcake', calories: 305 },
-    { name: 'Gingerbread', calories: 356 },
-    { name: 'Jelly bean', calories: 375 },
-    { name: 'Lollipop', calories: 392 },
-    { name: 'Honeycomb', calories: 408 },
-    { name: 'Donut', calories: 452 },
-    { name: 'KitKat', calories: 518 },
-]);
-
+import { ref, inject } from 'vue';
+const axios = inject('axios');
+const data = ref([]);
+axios.get('/story')
+    .then(res => {
+        data.value = res.data;
+        console.log(res.data);
+    })
+    .catch(err => console.log(`axios錯誤訊息:${err.response.data.message}`));
 </script>
 
 
@@ -26,25 +20,34 @@ const desserts = ref([
             <v-col cols="6" class="text-end">預計做breadcrumbs</v-col>
         </v-row>
         <v-row>
-            <v-col cols="12">
+            <v-col cols="3"></v-col>
+            <v-col cols="6">
                 <v-btn to="/admin/story/add" color="green-lighten-1" class="new-btn" text="新增"></v-btn>
             </v-col>
-            <v-col cols="12">
+        </v-row>
+        <v-row>
+            <v-col cols="3"></v-col>
+            <v-col cols="6">
                 <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">標題</th>
-                            <th scope="col">內文</th>
+                            <th scope="col">建立日期</th>
+                            <th scope="col">修改日期</th>
+                            <th scope="col">操作</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>                            
-                        </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>                            
+                        <tr v-for="item in data" :key="item.Id">
+                            <td scope="row">{{ item.Title }}</td>
+                            <td scope="row">{{ item.Created_at }}</td>
+                            <td scope="row">{{ item.Updated_at }}</td>
+                            <td scope="row">
+                                <div class="d-flex column-gap-3">
+                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

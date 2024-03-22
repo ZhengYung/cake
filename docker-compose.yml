@@ -54,7 +54,6 @@ services:
     depends_on:
       - backend_apache
       - backend_express
-
   # $time = Get-Date -Format "yyyyMMdd-HHmmss.fff"
   # $hash = [System.Security.Cryptography.SHA256]::Create().ComputeHash([System.Text.Encoding]::UTF8.GetBytes($time))
   # $secretKey = [System.BitConverter]::ToString($hash).Replace("-", "").ToLower()

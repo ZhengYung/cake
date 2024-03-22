@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
 /* https://www.shutterstock.com/zh-Hant/blog/101-free-color-combinations-design-inspiration 配色參考 04 92 94 97 99 */
 :root {
   --firstColor: #148cc2;
@@ -10,9 +11,10 @@
 }
 
 /*mycss_reset_start*/
-*{
-  color:black;
+* {
+  color: black;
 }
+
 *,
 *::before,
 *::after {
@@ -50,6 +52,18 @@ img {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+/* 隱藏 number input 的箭頭 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 /*mycss_reset_end*/

@@ -4,7 +4,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue';
 import { ClassicEditor } from '@ckeditor/ckeditor5-editor-classic';
 import { FontSize, FontFamily, FontColor, FontBackgroundColor } from '@ckeditor/ckeditor5-font';
 import { Bold, Italic, Underline, Strikethrough } from '@ckeditor/ckeditor5-basic-styles';
-import { Link } from '@ckeditor/ckeditor5-link';
+import { Link, LinkImage } from '@ckeditor/ckeditor5-link';
 import { Paragraph } from '@ckeditor/ckeditor5-paragraph';
 import { Essentials } from '@ckeditor/ckeditor5-essentials';
 import { SimpleUploadAdapter } from '@ckeditor/ckeditor5-upload';
@@ -25,7 +25,7 @@ const editorConfig = {
         Heading, List,
         FontSize, FontFamily, FontColor, FontBackgroundColor,
         Bold, Italic, Underline, Strikethrough,
-        Link, Paragraph, Essentials,
+        Link, LinkImage, Paragraph, Essentials,
         Image, ImageCaption, ImageStyle, ImageToolbar, ImageUpload, ImageResize,
         SimpleUploadAdapter
     ],
@@ -47,8 +47,30 @@ const editorConfig = {
     },
     image: {
         toolbar: [
-            'imageStyle:block',
-            'imageStyle:side',
+            'imageStyle:inline',
+            {
+                // Grouping the buttons for the regular
+                // picture-like image styling into one dropdown.
+                name: 'imageStyle:WrapTextGroup',
+                title: 'Wrap text',
+                items: [
+                    'imageStyle:alignLeft',
+                    'imageStyle:alignRight',
+                ],
+                defaultItem: 'imageStyle:alignLeft'
+            },
+            {
+                // Grouping the buttons for the regular
+                // picture-like image styling into one dropdown.
+                name: 'imageStyle:BreakTextGroup',
+                title: 'Break text',
+                items: [
+                    'imageStyle:alignBlockLeft',
+                    'imageStyle:block',
+                    'imageStyle:alignBlockRight'
+                ],
+                defaultItem: 'imageStyle:block'
+            },
             '|',
             'toggleImageCaption',
             'imageTextAlternative',
