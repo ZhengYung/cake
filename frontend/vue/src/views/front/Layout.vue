@@ -1,8 +1,7 @@
 <script setup>
 
 //vue
-// import { RouterLink, RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted, onUnmounted } from 'vue';
 import router from '@/router';
 

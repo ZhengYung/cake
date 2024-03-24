@@ -12,7 +12,7 @@ onUnmounted(() => {
 
 const form = ref(false);
 const title = ref("");
-const Sequence = ref(null);
+const sequence = ref(null);
 
 const rules = {
     required: value => !!value || '必填',
@@ -27,8 +27,11 @@ const rules = {
 const submitForm = () => {
     console.log('送出表單');
     const formData = {
-        Title: title.value,
-        Content: editorData.value
+        data:{
+            Title: title.value,
+            Content: editorData.value,
+            Sequence:sequence.value
+        }
     }
     console.log(editorData.value);
     axios.post('/story', formData)
@@ -52,7 +55,7 @@ const submitForm = () => {
             <v-row>
                 <v-col cols="2"></v-col>
                 <v-col cols="1">
-                    <v-text-field type="number" min="0" v-model:model-value="Sequence" :rules="[rules.required]"
+                    <v-text-field type="number" min="0" v-model:model-value="sequence" :rules="[rules.required]"
                         label="排序" hide-details="auto"></v-text-field>
                 </v-col>
             </v-row>

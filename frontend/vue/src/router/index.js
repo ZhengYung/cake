@@ -79,7 +79,7 @@ const router = createRouter({
           component: () => import('../views/admin/story/Add.vue'),
         },
         {
-          path: 'story/edit',
+          path: 'story/edit/:Id',
           name: '',
           component: () => import('../views/admin/story/Edit.vue'),
         },
@@ -88,16 +88,6 @@ const router = createRouter({
           path: 'newsLayer',
           name: '',
           component: () => import('../views/admin/news/layer/List.vue'),
-        },
-        {
-          path: 'newsLayer/add',
-          name: '',
-          component: () => import('../views/admin/news/layer/Add.vue'),
-        },
-        {
-          path: 'newsLayer/edit',
-          name: '',
-          component: () => import('../views/admin/news/layer/Edit.vue'),
         },
         {
           path: 'news',
@@ -121,16 +111,6 @@ const router = createRouter({
           component: () => import('../views/admin/product/layer/List.vue'),
         },
         {
-          path: 'productLayer/add',
-          name: '',
-          component: () => import('../views/admin/product/layer/Add.vue'),
-        },
-        {
-          path: 'productLayer/edit',
-          name: '',
-          component: () => import('../views/admin/product/layer/Edit.vue'),
-        },
-        {
           path: 'product',
           name: '',
           component: () => import('../views/admin/product/List.vue'),
@@ -150,16 +130,6 @@ const router = createRouter({
           path: 'faqLayer',
           name: '',
           component: () => import('../views/admin/faq/layer/List.vue'),
-        },
-        {
-          path: 'faqLayer/add',
-          name: '',
-          component: () => import('../views/admin/faq/layer/Add.vue'),
-        },
-        {
-          path: 'faqLayer/edit',
-          name: '',
-          component: () => import('../views/admin/faq/layer/Edit.vue'),
         },
         {
           path: 'faq',
