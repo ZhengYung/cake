@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： db
--- 產生時間： 2024 年 03 月 24 日 14:24
+-- 產生時間： 2024 年 03 月 22 日 08:19
 -- 伺服器版本： 10.4.8-MariaDB-1:10.4.8+maria~bionic
 -- PHP 版本： 8.2.16
 
@@ -22,27 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `cake` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `cake`;
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `faq-layer`
---
-
-CREATE TABLE `faq-layer` (
-  `Id` int(11) NOT NULL,
-  `Name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '購物須知類別名稱',
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `Updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='購物須知類別表';
-
---
--- 觸發器 `faq-layer`
---
-DELIMITER $$
-CREATE TRIGGER `faq-layer_update_timestamp` BEFORE UPDATE ON `faq-layer` FOR EACH ROW SET NEW.updated_at = NOW()
-$$
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -71,48 +50,6 @@ CREATE TABLE `member` (
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `news-layer`
---
-
-CREATE TABLE `news-layer` (
-  `Id` int(11) NOT NULL,
-  `Name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '最新消息類別名稱',
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `Updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='最新消息類別表';
-
---
--- 觸發器 `news-layer`
---
-DELIMITER $$
-CREATE TRIGGER `news-layer_update_timestamp` BEFORE UPDATE ON `news-layer` FOR EACH ROW SET NEW.updated_at = NOW()
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `product-layer`
---
-
-CREATE TABLE `product-layer` (
-  `Id` int(11) NOT NULL,
-  `Name` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '產品類別名稱',
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `Updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='產品類別表';
-
---
--- 觸發器 `product-layer`
---
-DELIMITER $$
-CREATE TRIGGER `product-layer_update_timestamp` BEFORE UPDATE ON `product-layer` FOR EACH ROW SET NEW.updated_at = NOW()
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
 -- 資料表結構 `story`
 --
 
@@ -129,7 +66,7 @@ CREATE TABLE `story` (
 -- 觸發器 `story`
 --
 DELIMITER $$
-CREATE TRIGGER `story_update_timestamp` BEFORE UPDATE ON `story` FOR EACH ROW SET NEW.updated_at = NOW()
+CREATE TRIGGER `story_updated_timestamp` BEFORE UPDATE ON `story` FOR EACH ROW SET NEW.updated_at = NOW()
 $$
 DELIMITER ;
 
@@ -138,27 +75,9 @@ DELIMITER ;
 --
 
 --
--- 資料表索引 `faq-layer`
---
-ALTER TABLE `faq-layer`
-  ADD PRIMARY KEY (`Id`);
-
---
 -- 資料表索引 `member`
 --
 ALTER TABLE `member`
-  ADD PRIMARY KEY (`Id`);
-
---
--- 資料表索引 `news-layer`
---
-ALTER TABLE `news-layer`
-  ADD PRIMARY KEY (`Id`);
-
---
--- 資料表索引 `product-layer`
---
-ALTER TABLE `product-layer`
   ADD PRIMARY KEY (`Id`);
 
 --
@@ -172,27 +91,9 @@ ALTER TABLE `story`
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `faq-layer`
---
-ALTER TABLE `faq-layer`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- 使用資料表自動遞增(AUTO_INCREMENT) `member`
 --
 ALTER TABLE `member`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `news-layer`
---
-ALTER TABLE `news-layer`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `product-layer`
---
-ALTER TABLE `product-layer`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
