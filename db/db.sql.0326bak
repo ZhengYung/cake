@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： db
--- 產生時間： 2024 年 03 月 26 日 03:56
+-- 產生時間： 2024 年 03 月 24 日 14:24
 -- 伺服器版本： 10.4.8-MariaDB-1:10.4.8+maria~bionic
 -- PHP 版本： 8.2.16
 
@@ -67,22 +67,6 @@ CREATE TABLE `member` (
   `Created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `Updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='會員資料表';
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `news`
---
-
-CREATE TABLE `news` (
-  `Id` int(11) NOT NULL,
-  `LayerId` int(11) NOT NULL,
-  `Title` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Content` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Thumbnail` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DOA` date NOT NULL COMMENT '排程發佈日',
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='最新消息資料表';
 
 -- --------------------------------------------------------
 
@@ -166,12 +150,6 @@ ALTER TABLE `member`
   ADD PRIMARY KEY (`Id`);
 
 --
--- 資料表索引 `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`Id`);
-
---
 -- 資料表索引 `news-layer`
 --
 ALTER TABLE `news-layer`
@@ -203,12 +181,6 @@ ALTER TABLE `faq-layer`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `member`
 --
 ALTER TABLE `member`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `news`
---
-ALTER TABLE `news`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
