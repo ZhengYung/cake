@@ -285,7 +285,7 @@ onUnmounted(() => {
     clip-path: url('#bannerClip');
     background-size: cover;
     background-position: center right;
-    // transition: none;
+    
     transition: background-image 0.5s ease-out 0s;
 
     &.home {
@@ -358,7 +358,7 @@ onUnmounted(() => {
 header {
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-
+    transition: background-color 0.5s ease-out 0s;
     * {
         color: var(--firstColor);
     }
@@ -430,6 +430,7 @@ header {
                         background-color: var(--secColor);
                         width: 0;
                         height: 0;
+                        transition: all 0.5s ease-out 0s;
                     }
 
                     &.active::after {

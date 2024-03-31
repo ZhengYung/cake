@@ -14,7 +14,7 @@ export default defineConfig({
       template: { transformAssetUrls }//讓vue能支援vuetify透過alias載入圖片
     }),
     vuetify({
-      autoImport: true,
+      autoImport: { labs: true },
     }),
     ckeditor5({ theme: require.resolve('@ckeditor/ckeditor5-theme-lark') })
   ],

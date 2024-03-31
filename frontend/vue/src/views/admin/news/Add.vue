@@ -1,6 +1,6 @@
 <script setup>
 import { ckeditor, ClassicEditor, editorData, editorConfig } from '@/plugins/ckeditor';
-import { ref, inject, onUnmounted, computed } from 'vue';
+import { ref, inject, onMounted, onUnmounted, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
 import VuePictureCropper, { cropper } from 'vue-picture-cropper';
@@ -11,7 +11,19 @@ const axios = inject('axios');
 onUnmounted(() => {
     editorData.value = "";
 });
-
+//類別清單
+const layers = ref([]);
+const selectLayerId = ref(null);
+const getLayers = () => {
+    axios.get('/newsLayer')
+        .then(res => {
+            layers.value = res.data;
+        })
+        .catch(err => console.log(`axios錯誤訊息:${err.response.data.message}`));
+}
+onMounted(() => {
+    getLayers();
+});
 
 const rules = {
     required: value => !!value || '必填',
@@ -25,26 +37,26 @@ const rules = {
 
 const form = ref(false);
 const title = ref("");
+const sub = ref("");
 
 //datepicker
-const dateVal = ref(null);
 const yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 const minDate = yesterday;
 
+const menu = ref(false);
+const dateVal = ref(null);
+
 const dateDisp = computed(() => {
     if (dateVal.value) {
         const date = new Date(dateVal.value);
-        showDatePicker.value = false;
-        return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()}`;
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}/${month}/${day}`;
     }
     return "";
 })
-
-const showDatePicker = ref(false);
-const closeDatePicker = () => {
-    showDatePicker.value = false;
-}
 
 //縮圖
 const cropperStyle = {
@@ -128,14 +140,16 @@ const submitForm = () => {
     console.log('送出表單');
     const formData = {
         data: {
-            Layer:layer.value,
+            LayerId: selectLayerId.value,
             Title: title.value,
+            Sub:sub.value,
             Content: editorData.value,
-            Thumbnail:thumbnail.value,
+            Thumbnail: thumbnail.value,
+            DOA: dateVal.value
         }
     }
-    console.log(editorData.value);
-    axios.post('/story', formData)
+
+    axios.post('/news', formData)
         .then(res => {
             console.log(res.data);
             Swal.fire({
@@ -144,7 +158,7 @@ const submitForm = () => {
                 title: "新增成功",
                 showConfirmButton: false,
                 timer: 1500,
-                didClose: () => { router.push('/admin/story') }
+                didClose: () => { router.push('/admin/news') }
             })
         })
         .catch(err => console.log(`axios錯誤訊息:${err.response.data.message}`));
@@ -153,7 +167,6 @@ const submitForm = () => {
 
 </script>
 <template>
-
     <v-container :fluid="true">
         <v-dialog v-model="dialog" transition="dialog-bottom-transition" max-width="400">
             <v-card>
@@ -173,24 +186,32 @@ const submitForm = () => {
             </v-card>
         </v-dialog>
         <v-form @submit.prevent="submitForm" v-model="form">
-            <v-row>
-                <v-col cols="3"></v-col>
+            <v-row class="justify-content-end">
                 <v-col cols="6">
+                    <v-select v-model="selectLayerId" label="類別" :items="layers" item-title="Name" item-value="Id"
+                        :rules="[rules.required]"></v-select>
                     <v-text-field v-model:model-value="title" counter maxlength="20"
                         :rules="[rules.required, rules.min_three]" label="標題" clearable></v-text-field>
+                    <v-text-field v-model:model-value="sub" counter maxlength="20"
+                        :rules="[rules.required, rules.min_three]" label="副標題" clearable></v-text-field>
                     <ckeditor :editor="ClassicEditor" v-model="editorData" :config="editorConfig">
                     </ckeditor>
-                    <v-btn class="d-block ms-auto mt-3 submitBtn" type="submit" :disabled="!form || result==''">送出</v-btn>
+                    <v-btn class="d-block ms-auto mt-3 submitBtn" type="submit"
+                        :disabled="!form || thumbnail == ''">送出</v-btn>
                 </v-col>
-                <v-col cols="3">
-                    <v-text-field @click:control="showDatePicker = !showDatePicker" v-model:model-value="dateDisp"
-                        label="發佈日" readonly :rules="[rules.required]"></v-text-field>
-                    <div v-if="showDatePicker">
-                        <v-date-picker :min="minDate" v-model:model-value="dateVal" width="100%" hide-header
-                            v-click-outside="closeDatePicker"></v-date-picker>
-                    </div>
+                <v-col cols="6" md="4">
+                    <v-menu v-model="menu" :close-on-content-click="false" transition="scale-transition" offset-y>
+                        <template #activator="{ props }">
+                            <v-text-field v-model:model-value="dateDisp" v-bind="props" label="發佈日" readonly
+                                :rules="[rules.required]"></v-text-field>
+                        </template>
+
+                        <v-date-picker v-model="dateVal" @update:model-value="menu = false" :min="minDate"
+                            hide-header="true" width="100%"></v-date-picker>
+                    </v-menu>
+
                     <div class="select-picture">
-                        <p v-if="result == ''">請選擇縮圖</p>
+                        <p v-if="thumbnail == ''">請選擇縮圖</p>
                         <img :src="thumbnail" alt="">
                         <input ref="uploadInput" class="fileSelector" type="file"
                             accept="image/jpg, image/jpeg, image/png, image/gif" @change="selectFile">
@@ -235,7 +256,7 @@ const submitForm = () => {
     }
 }
 
-:deep(.cropper-bg) {
+:deep(.cropper-container.cropper-bg) {
     background-repeat: repeat !important;
 }
 </style>

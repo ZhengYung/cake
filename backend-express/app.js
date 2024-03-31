@@ -112,6 +112,7 @@ app.get('/story', async (req, res) => {
         const [rows, fields] = await conn.execute(sql);
         console.log(rows);
         console.log(fields);
+        conn.release();
         res.status(200).json(rows);
     }
     catch (error) {
@@ -205,6 +206,7 @@ app.get('/newsLayer', async (req, res) => {
         const [rows, fields] = await conn.execute(sql);
         console.log(rows);
         console.log(fields);
+        conn.release();
         res.status(200).json(rows);
     }
     catch (error) {
@@ -303,6 +305,7 @@ app.get('/productLayer', async (req, res) => {
         const [rows, fields] = await conn.execute(sql);
         console.log(rows);
         console.log(fields);
+        conn.release();
         res.status(200).json(rows);
     }
     catch (error) {
@@ -402,6 +405,7 @@ app.get('/faqLayer', async (req, res) => {
         const [rows, fields] = await conn.execute(sql);
         console.log(rows);
         console.log(fields);
+        conn.release();
         res.status(200).json(rows);
     }
     catch (error) {
@@ -494,9 +498,197 @@ app.delete('/faqLayer', express.json(), async (req, res) => {
 
 
 //最新消息
+//獲取所有
+app.get('/news', async (req, res) => {
+    try {
+        const conn = await pool.getConnection();
 
+        const sql = 'SELECT a.*,b.Name AS LayerName FROM `news` AS a LEFT JOIN `news-layer` AS b ON a.LayerId=b.Id ORDER BY `DOA` DESC';
+        const [rows, fields] = await conn.execute(sql);
+        console.log(rows);
+        console.log(fields);
+        conn.release();
+        res.status(200).json(rows);
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+//新增
+app.post('/news', express.json(), async (req, res) => {
+    const jsonData = req.body.data;
+    const date = new Date(jsonData.DOA);
+    try {
+        await checkKeys(jsonData, ["LayerId", "Title", "Sub", "Content", "Thumbnail", "DOA"]);
+        const conn = await pool.getConnection();
+        const sql = 'INSERT INTO `news`(`LayerId`, `Title`, `Sub`, `Content`, `Thumbnail`, `DOA`) VALUES (?, ?, ?, ?, ?, ?)';
+        const values = [jsonData.LayerId, jsonData.Title, jsonData.Sub, jsonData.Content, jsonData.Thumbnail, date.toISOString().replace('T', ' ').replace('Z', '')];
 
+        const [result, fields] = await conn.execute(sql, values);
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json('新增成功');
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
+//獲取特定
+app.get('/news/:Id', async (req, res) => {
+    const Id = req.params.Id;
+    console.log(Id);
+    try {
+        const conn = await pool.getConnection();
+        const sql = 'SELECT * FROM `news` WHERE `Id` = ? LIMIT 1';
+        const values = [Id];
 
+        const [result, fields] = await conn.execute(sql, values);
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
+//更新
+app.put('/news', express.json(), async (req, res) => {
+    const jsonData = req.body.data;
+    const date = new Date(jsonData.DOA);
+    console.log(jsonData);
+    try {
+        await checkKeys(jsonData, ["Id", "LayerId", "Title", "Sub", "Content", "Thumbnail", "DOA"]);
+        const conn = await pool.getConnection();
+        const sql = 'UPDATE `news` SET `LayerId`= ?, `Title`= ?, `Sub`= ?, `Content`= ?, `Thumbnail`= ?, `DOA`= ? WHERE `Id`= ?';
+        const values = [jsonData.LayerId, jsonData.Title, jsonData.Sub, jsonData.Content, jsonData.Thumbnail, date.toISOString().replace('T', ' ').replace('Z', ''), jsonData.Id];
+        const [result, fields] = await conn.execute(sql, values);
+
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json('更新成功');
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
+//刪除
+app.delete('/news', express.json(), async (req, res) => {
+    const jsonData = req.body;
+    try {
+        await checkKeys(jsonData, ["Id"]);
+        const conn = await pool.getConnection();
+        const sql = 'DELETE FROM `news` WHERE Id = ? LIMIT 1';
+        const values = [jsonData.Id];
+        const [result, fields] = await conn.execute(sql, values);
+
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json('刪除成功');
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
+
+//購物須知
+//獲取所有
+app.get('/faq', async (req, res) => {
+    try {
+        const conn = await pool.getConnection();
+
+        const sql = 'SELECT a.*,b.Name FROM `faq` AS a LEFT JOIN `faq-layer` AS b ON a.LayerId=b.Id ORDER BY a.LayerId ASC, a.Sequence ASC';
+        const [rows, fields] = await conn.execute(sql);
+        console.log(rows);
+        console.log(fields);
+        conn.release();
+        res.status(200).json(rows);
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+//新增
+app.post('/faq', express.json(), async (req, res) => {
+    const jsonData = req.body.data;
+    try {
+        await checkKeys(jsonData, ["LayerId", "Sequence", "Title", "Content"]);
+        const conn = await pool.getConnection();
+        const sql = 'INSERT INTO `faq`(`LayerId`, `Sequence`, `Title`, `Content`) VALUES (?, ?, ?, ?)';
+        const values = [jsonData.LayerId, jsonData.Sequence, jsonData.Title, jsonData.Content];
+
+        const [result, fields] = await conn.execute(sql, values);
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json('新增成功');
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
+//獲取特定
+app.get('/faq/:Id', async (req, res) => {
+    const Id = req.params.Id;
+    console.log(Id);
+    try {
+        const conn = await pool.getConnection();
+        const sql = 'SELECT * FROM `faq` WHERE `Id` = ? LIMIT 1';
+        const values = [Id];
+
+        const [result, fields] = await conn.execute(sql, values);
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
+//更新
+app.put('/faq', express.json(), async (req, res) => {
+    const jsonData = req.body.data;
+    const date = new Date(jsonData.DOA);
+    console.log(jsonData);
+    try {
+        await checkKeys(jsonData, ["Id", "LayerId", "Title", "Sub", "Content", "Thumbnail", "DOA"]);
+        const conn = await pool.getConnection();
+        const sql = 'UPDATE `faq` SET `LayerId`= ?, `Title`= ?, `Sub`= ?, `Content`= ?, `Thumbnail`= ?, `DOA`= ? WHERE `Id`= ?';
+        const values = [jsonData.LayerId, jsonData.Title, jsonData.Sub, jsonData.Content, jsonData.Thumbnail, date.toISOString().replace('T', ' ').replace('Z', ''), jsonData.Id];
+        const [result, fields] = await conn.execute(sql, values);
+
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json('更新成功');
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
+//刪除
+app.delete('/faq', express.json(), async (req, res) => {
+    const jsonData = req.body;
+    try {
+        await checkKeys(jsonData, ["Id"]);
+        const conn = await pool.getConnection();
+        const sql = 'DELETE FROM `faq` WHERE Id = ? LIMIT 1';
+        const values = [jsonData.Id];
+        const [result, fields] = await conn.execute(sql, values);
+
+        console.log(result);
+        console.log(fields);
+        conn.release();
+        res.status(200).json('刪除成功');
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ message: error.message });
+    }
+});
 
 //確認server是否存活
 app.get('/', (req, res) => {

@@ -100,7 +100,7 @@ const router = createRouter({
           component: () => import('../views/admin/news/Add.vue'),
         },
         {
-          path: 'news/edit',
+          path: 'news/edit/:Id',
           name: '',
           component: () => import('../views/admin/news/Edit.vue'),
         },
@@ -142,7 +142,7 @@ const router = createRouter({
           component: () => import('../views/admin/faq/Add.vue'),
         },
         {
-          path: 'faq/edit',
+          path: 'faq/edit/:Id',
           name: '',
           component: () => import('../views/admin/faq/Edit.vue'),
         },

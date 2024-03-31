@@ -27,10 +27,10 @@ const rules = {
 const submitForm = () => {
     console.log('送出表單');
     const formData = {
-        data:{
+        data: {
             Title: title.value,
             Content: editorData.value,
-            Sequence:sequence.value
+            Sequence: sequence.value
         }
     }
     console.log(editorData.value);
@@ -54,9 +54,11 @@ const submitForm = () => {
         <v-form @submit.prevent="submitForm" v-model="form">
             <v-row>
                 <v-col cols="2"></v-col>
-                <v-col cols="1">
+                <v-col cols="2">
                     <v-text-field type="number" min="0" v-model:model-value="sequence" :rules="[rules.required]"
-                        label="排序" hide-details="auto"></v-text-field>
+                        label="排序" hide-details="auto" prepend-icon="fa-solid fa-minus" append-icon="fa-solid fa-plus"
+                        @click:prepend="sequence = sequence == 0 ? 0 : sequence - 1" @click:append="sequence = sequence + 1">
+                    </v-text-field>
                 </v-col>
             </v-row>
             <v-row class="mt-0">
@@ -87,5 +89,4 @@ const submitForm = () => {
     height: 500px;
     overflow-y: auto;
 }
-
 </style>

@@ -2,6 +2,7 @@
 import { ref, inject } from 'vue';
 import parseLocalTime from '@/assets/parseLocalTime';
 import { RouterLink } from 'vue-router';
+import Swal from 'sweetalert2';
 const axios = inject('axios');
 const list = ref([]);
 axios.get('/story')
@@ -9,16 +10,36 @@ axios.get('/story')
         list.value = res.data;
     })
     .catch(err => console.log(`axios錯誤訊息:${err.response.data.message}`));
+
 const deleteItem = (Item) => {
-    axios.delete('/story', {
-        data: {
-            Id: Item.Id
+    Swal.fire({
+        title: `確定要刪除${Item.Title}?`,
+        text: "此操作無法復原!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.delete('/newsLayer', {
+                data: {
+                    Id: Item.Id
+                }
+            })
+                .then(res => {
+                    list.value = list.value.filter(item => item !== Item);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: `${Item.Title}刪除成功`,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                })
+                .catch(err => console.log(`axios錯誤訊息:${err.response.data.message}`));
         }
-    })
-        .then(res => {
-            list.value = list.value.filter(item => item !== Item);
-        })
-        .catch(err => console.log(`axios錯誤訊息:${err.response.data.message}`));
+    });
 }
 </script>
 
@@ -85,7 +106,8 @@ const deleteItem = (Item) => {
 * {
     transition: unset;
 }
-a{
-    color:black;
+
+a {
+    color: black;
 }
 </style>
