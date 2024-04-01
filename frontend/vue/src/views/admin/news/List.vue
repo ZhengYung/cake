@@ -1,9 +1,8 @@
 <script setup>
-import { ref, inject, onMounted } from 'vue';
+import { ref, inject, onMounted, computed } from 'vue';
 import parseLocalTime from '@/assets/parseLocalTime';
 import { RouterLink, useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
-import { computed } from 'vue';
 const router = useRouter();
 const axios = inject('axios');
 const list = ref([]);
@@ -31,7 +30,7 @@ const selectedLayerList = computed(() => {
 })
 const getNews = (Item) => {
     const Id = Item.Id;
-    console.log('test');
+    
     axios.get(`news/${Id}`)
         .then(res => {
             news.value = res.data[0];

@@ -65,7 +65,7 @@ const imageUpload = multer({
 app.post('/image', imageUpload.single('upload'),
     (req, res, next) => {
         // 回傳圖片的 URL
-        const imageUrl = `http://localhost:3000/uploads/images/${req.file.filename}`;
+        const imageUrl = `http://192.168.10.29:3000/uploads/images/${req.file.filename}`;
         res.json({ success: true, url: imageUrl });
     },
     (error, req, res, next) => {
@@ -655,10 +655,10 @@ app.put('/faq', express.json(), async (req, res) => {
     const date = new Date(jsonData.DOA);
     console.log(jsonData);
     try {
-        await checkKeys(jsonData, ["Id", "LayerId", "Title", "Sub", "Content", "Thumbnail", "DOA"]);
+        await checkKeys(jsonData, ["Id", "LayerId", "Sequence", "Title", "Content"]);
         const conn = await pool.getConnection();
-        const sql = 'UPDATE `faq` SET `LayerId`= ?, `Title`= ?, `Sub`= ?, `Content`= ?, `Thumbnail`= ?, `DOA`= ? WHERE `Id`= ?';
-        const values = [jsonData.LayerId, jsonData.Title, jsonData.Sub, jsonData.Content, jsonData.Thumbnail, date.toISOString().replace('T', ' ').replace('Z', ''), jsonData.Id];
+        const sql = 'UPDATE `faq` SET `LayerId`= ?, `Sequence`= ?, `Title`= ?, `Content`= ? WHERE `Id`= ?';
+        const values = [jsonData.LayerId, jsonData.Sequence, jsonData.Title, jsonData.Content, jsonData.Id];
         const [result, fields] = await conn.execute(sql, values);
 
         console.log(result);

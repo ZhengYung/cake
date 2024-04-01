@@ -1,5 +1,5 @@
 <script setup>
-import { ref, inject, onMounted } from 'vue';
+import { ref, inject, onMounted, computed } from 'vue';
 import { useRouter, RouterLink } from 'vue-router';
 import parseLocalTime from '@/assets/parseLocalTime';
 import Swal from 'sweetalert2';
@@ -8,24 +8,73 @@ const router = useRouter();
 const axios = inject('axios');
 
 const list = ref([]);
+const layers = ref([]);
 const selectLayerId = ref(null);
-const layers = ref(null);
-const dialog = ref(false);
 const faq = ref(null);
+const dialog = ref(false);
 onMounted(async () => {
     try {
-        const res = axios('faq');
-        const res2 = axios('faqLayer');
+        const res = await axios.get('/faq');
+        const res2 = await axios.get('/faqLayer');
 
         list.value = res.data;
         layers.value = res2.data.map(item => { return { Id: item.Id, Name: item.Name } });
         layers.value.push({ Id: 0, Name: "全部" });
         selectLayerId.value = 0;
+
     } catch (error) {
         console.error('錯誤:', error);
     }
-
 });
+const selectedLayerList = computed(() => {
+    return selectLayerId.value == 0 ? list.value : list.value.filter(item => item.LayerId == selectLayerId.value);
+})
+
+const getFAQ = (Item) => {
+    const Id = Item.Id;
+
+    axios.get(`faq/${Id}`)
+        .then(res => {
+            faq.value = res.data[0];
+            dialog.value = true;
+        })
+        .catch(err => console.error('獲取失敗:', err.response.data.message));
+}
+const editFAQ = (Id) => {
+    dialog.value = false;
+    router.push(`/admin/faq/edit/${Id}`);
+}
+
+const deleteItem = (Item) => {
+    Swal.fire({
+        title: `確定要刪除${Item.Name}?`,
+        text: "此操作無法復原!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "確定!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.delete('/faq', {
+                data: {
+                    Id: Item.Id
+                }
+            })
+                .then(res => {
+                    list.value = list.value.filter(item => item !== Item);
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: `${Item.Name}刪除成功`,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    })
+                })
+                .catch(err => console.log(`axios錯誤訊息:${err.response.data.message}`));
+        }
+    });
+}
 </script>
 <template>
     <v-container :fluid="true">
@@ -37,10 +86,10 @@ onMounted(async () => {
                     <v-spacer></v-spacer>
                     <v-toolbar-items>
                         <v-btn text="確定" variant="text" @click="dialog = false"></v-btn>
-                        <v-btn text="修改" variant="text" @click="editNews(news.Id)"></v-btn>
+                        <v-btn text="修改" variant="text" @click="editFAQ(faq.Id)"></v-btn>
                     </v-toolbar-items>
                 </v-toolbar>
-                <div v-html="news.Content"></div>
+                <div v-html="faq.Content"></div>
             </v-card>
         </v-dialog>
         <v-row>
@@ -73,11 +122,11 @@ onMounted(async () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="item in list" :key="item.Id">
+                        <tr v-for="item in selectedLayerList" :key="item.Id">
                             <td scope="row">{{ item.Name }}</td>
                             <td scope="row">{{ item.Title }}</td>
                             <td scope="row">
-                                <v-btn append-icon="fa-regular fa-eye" @click="getNews(item)">
+                                <v-btn append-icon="fa-regular fa-eye" @click="getFAQ(item)">
                                     查看
                                 </v-btn>
                             </td>
@@ -86,7 +135,7 @@ onMounted(async () => {
                             <td scope="row">
                                 <div class="d-flex column-gap-3">
                                     <v-hover v-slot="{ isHovering, props }">
-                                        <RouterLink v-bind="props" v-ripple :to="`/admin/story/edit/${item.Id}`"
+                                        <RouterLink v-bind="props" v-ripple :to="`/admin/faq/edit/${item.Id}`"
                                             :class="[{ 'text-green-darken-1': isHovering }, 'cursor-pointer', 'fa-solid', 'fa-pen']">
                                         </RouterLink>
                                     </v-hover>

@@ -1,9 +1,8 @@
 <script setup>
 import { ckeditor, ClassicEditor, editorData, editorConfig } from '@/plugins/ckeditor';
-import { ref, inject, onUnmounted } from 'vue';
+import { ref, inject, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
-import { onMounted } from 'vue';
 
 const router = useRouter();
 const axios = inject('axios');

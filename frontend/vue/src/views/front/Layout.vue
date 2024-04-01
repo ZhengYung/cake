@@ -157,14 +157,17 @@ onUnmounted(() => {
                     <button type="button" class="bg-transparent p-0 border-0" data-bs-toggle="modal"
                         data-bs-target="#loginModal"><i class="fa-regular fa-user"></i>
                     </button>
+
                     <div class="dropdown loginDropdown">
                         <button class="dropdown-toggle loginDropdownBtn" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                         </button>
                         <v-list class="dropdown-menu position-absolute" density="comfortable" nav>
-                            <v-list-item to="/memberinfo/1" title="會員中心" value="MemberCenter"></v-list-item>
-                            <v-list-item to="/admin/salesOverview" title="後臺管理" value="Admin"></v-list-item>
-                            <v-list-item title="登出" value="Logout"></v-list-item>
+                            <v-list-item class="text-black" to="/memberinfo/1" title="會員中心"
+                                value="MemberCenter"></v-list-item>
+                            <v-list-item class="text-black" to="/admin/salesOverview" title="後臺管理"
+                                value="Admin"></v-list-item>
+                            <v-list-item class="text-black" title="登出" value="Logout"></v-list-item>
                         </v-list>
                     </div>
                     <button type="button" class="bg-transparent p-0 border-0" data-bs-toggle="modal"
@@ -285,7 +288,7 @@ onUnmounted(() => {
     clip-path: url('#bannerClip');
     background-size: cover;
     background-position: center right;
-    
+
     transition: background-image 0.5s ease-out 0s;
 
     &.home {
@@ -359,6 +362,7 @@ header {
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.5s ease-out 0s;
+
     * {
         color: var(--firstColor);
     }

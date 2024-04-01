@@ -19,7 +19,7 @@ registerPlugins(app)
 
 // Axios Plugin
 // 設定 axios 的 baseURL
-axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "http://192.168.10.29:3000";
 app.use(VueAxios, axios);
 app.provide("axios", app.config.globalProperties.axios);
 

@@ -119,7 +119,7 @@ const getResult = async () => {
 
     const formData = new FormData();
     formData.append('upload', file);
-    axios.post('http://localhost:3000/image', formData)
+    axios.post('/image', formData)
         .then(res => {
             thumbnail.value = res.data.url;
         })
@@ -207,7 +207,7 @@ const submitForm = () => {
                         </template>
 
                         <v-date-picker v-model="dateVal" @update:model-value="menu = false" :min="minDate"
-                            hide-header="true" width="100%"></v-date-picker>
+                            :hide-header="true" width="100%"></v-date-picker>
                     </v-menu>
 
                     <div class="select-picture">
