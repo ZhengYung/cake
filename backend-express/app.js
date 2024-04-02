@@ -64,7 +64,7 @@ const imageUpload = multer({
 app.post('/image', imageUpload.single('upload'),
     (req, res, next) => {
         // 回傳圖片的 URL
-        const imageUrl = `http://192.168.10.29:3000/uploads/images/${req.file.filename}`;
+        const imageUrl = `http://localhost:3000/uploads/images/${req.file.filename}`;
         res.json({ success: true, url: imageUrl });
     },
     (error, req, res, next) => {
