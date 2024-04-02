@@ -7,15 +7,17 @@
 ![範例圖片 2](https://fakeimg.pl/500/)
 ![範例圖片 3](https://fakeimg.pl/500/)
 
-## 專案技術
+## 使用技術
 
-- Node.js v16.15.0
-- Vue v3.2.20
-- Vite v4.0.4
-- Vue Router v4.0.11
-- Axios v0.24.0
-- Bootstrap v5.1.3
-...
+- Vue v3.4.15
+- Vite v5.0.11
+- Vue Router v4.2.5
+- Bootstrap ^5.3.3
+- Vuetify v3.5.12
+- Axios v1.6.8
+- express ^4.18.3
+- multer ^1.4.5-lts.1
+- mysql2 ^3.9.2
 
 
 ## 功能簡介
@@ -27,17 +29,5 @@
 - 編譯程式碼
 - 執行 ESLint 掃描
 - 執行測試
-...
-
-
-## 聯絡作者
-
-> ps. 這邊絕對不是業配，而是要適當提供一些方式讓觀看者知道你的聯絡方式，讓他們可以更方便的找到你。
-
-你可以透過以下方式與我聯絡
-
-- [部落格](https://XXXXX.com/)
-- [Facebook](https://www.facebook.com/XXXX)
-- [Instagram](https://www.instagram.com/XXXX/)
 ...
 
