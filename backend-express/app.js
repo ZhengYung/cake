@@ -5,9 +5,8 @@ const cors = require('cors')
 const multer = require('multer');
 const fs = require('fs');
 const mysql2 = require('mysql2/promise');
-const { json } = require('body-parser');
 const app = express();
-// app.use(express.json());
+
 app.use(cors())
 
 app.use('/uploads', express.static('uploads'));

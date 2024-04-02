@@ -18,6 +18,18 @@ services:
     depends_on:
       - db
 
+  backend_apache:
+    build: backend-apache/
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+    volumes:
+      - ./backend-apache/html:/var/www/html
+    depends_on:
+      - db
+
   backend_express:
     image: node:20.11.1-alpine3.19
     restart: always
@@ -40,4 +52,10 @@ services:
     ports:
       - 80:80
     depends_on:
+      - backend_apache
       - backend_express
+  # $time = Get-Date -Format "yyyyMMdd-HHmmss.fff"
+  # $hash = [System.Security.Cryptography.SHA256]::Create().ComputeHash([System.Text.Encoding]::UTF8.GetBytes($time))
+  # $secretKey = [System.BitConverter]::ToString($hash).Replace("-", "").ToLower()
+  # $env:SECRET_KEY = $secretKey
+  # docker-compose up
