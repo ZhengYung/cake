@@ -44,7 +44,7 @@ const editNews = (Id) => {
 }
 const deleteItem = (Item) => {
     Swal.fire({
-        title: `確定要刪除${Item.Name}?`,
+        title: `確定要刪除?<br/>${Item.Title}`,
         text: "此操作無法復原!",
         icon: "warning",
         showCancelButton: true,
@@ -63,7 +63,7 @@ const deleteItem = (Item) => {
                     Swal.fire({
                         position: "center",
                         icon: "success",
-                        title: `${Item.Name}刪除成功`,
+                        title: `${Item.Title}刪除成功`,
                         showConfirmButton: false,
                         timer: 1500,
                     })
@@ -108,11 +108,11 @@ const deleteItem = (Item) => {
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th scope="col">縮圖</th>
                             <th scope="col">
                                 <v-select :hide-details="true" variant="underlined" v-model="selectLayerId" label="類別" :items="layers"
                                     item-title="Name" item-value="Id"></v-select>
                             </th>
+                            <th scope="col">縮圖</th>
                             <th scope="col">標題</th>
                             <th scope="col">副標題</th>
                             <th scope="col">內容</th>
@@ -122,8 +122,8 @@ const deleteItem = (Item) => {
                     </thead>
                     <tbody>
                         <tr v-for="item in selectedLayerList" :key="item.Id">
-                            <td scope="row"><img :src="item.Thumbnail" alt="縮圖"></td>
                             <td scope="row">{{ item.LayerName }}</td>
+                            <td scope="row"><img :src="item.Thumbnail" alt="縮圖"></td>
                             <td scope="row">{{ item.Title }}</td>
                             <td scope="row">{{ item.Sub }}</td>
                             <td scope="row">

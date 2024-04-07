@@ -22,7 +22,7 @@ const deleteItem = (Item) => {
         confirmButtonText: "確定!"
     }).then((result) => {
         if (result.isConfirmed) {
-            axios.delete('/newsLayer', {
+            axios.delete('/story', {
                 data: {
                     Id: Item.Id
                 }

@@ -19,7 +19,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  /* transition: all 0.5s ease-out 0s; */
 }
 
 html,
@@ -33,11 +32,6 @@ body {
   height: 100%;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
 a {
   text-decoration: none;

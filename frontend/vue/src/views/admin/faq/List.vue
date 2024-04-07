@@ -99,14 +99,14 @@ const deleteItem = (Item) => {
             <v-col cols="6" class="text-end">預計做breadcrumbs</v-col>
         </v-row>
         <v-row>
-            <v-col cols="3"></v-col>
-            <v-col cols="6">
+            <v-col cols="2"></v-col>
+            <v-col cols="8">
                 <v-btn to="/admin/faq/add" color="green-lighten-1" class="new-btn" text="新增"></v-btn>
             </v-col>
         </v-row>
         <v-row>
-            <v-col cols="3"></v-col>
-            <v-col cols="6">
+            <v-col cols="2"></v-col>
+            <v-col cols="8">
                 <table class="table table-hover">
                     <thead>
                         <tr>

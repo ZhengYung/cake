@@ -121,9 +121,24 @@ const router = createRouter({
           component: () => import('../views/admin/product/Add.vue'),
         },
         {
-          path: 'product/edit',
+          path: 'product/edit/:Id',
           name: '',
           component: () => import('../views/admin/product/Edit.vue'),
+        },
+        {
+          path: 'product-flavor',
+          name: '',
+          component: () => import('../views/admin/product/flavor/List.vue'),
+        },
+        {
+          path: 'product-flavor/add',
+          name: '',
+          component: () => import('../views/admin/product/flavor/Add.vue'),
+        },
+        {
+          path: 'product-flavor/edit/:Id',
+          name: '',
+          component: () => import('../views/admin/product/flavor/Edit.vue'),
         },
         //購物須知
         {

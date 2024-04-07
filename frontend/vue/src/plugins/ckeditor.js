@@ -43,7 +43,7 @@ const editorConfig = {
     },
     simpleUpload: {
         // The URL that the images are uploaded to.
-        uploadUrl: 'http://localhost:3000/image',
+        uploadUrl: 'http://192.168.100.2:3000/image',
     },
     image: {
         toolbar: [

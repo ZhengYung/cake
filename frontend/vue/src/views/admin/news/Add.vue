@@ -85,7 +85,6 @@ const thumbnail = ref('');
 // 將選擇的檔案傳給cropper
 const selectFile = (e) => {
     pic.value = '';
-    thumbnail.value = '';
 
     // 獲取選擇的檔案
     const { files } = e.target

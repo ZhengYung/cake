@@ -28,8 +28,10 @@ const open = ref([]);
             </template>
             <v-list-item to="/admin/productLayer" prepend-icon="fa-regular fa-circle" title="類別"
                 value="ProductLayers"></v-list-item>
-            <v-list-item to="/admin/product" prepend-icon="fa-regular fa-circle" title="產品"
-                value="ProductItems"></v-list-item>
+            <v-list-item to="/admin/product" prepend-icon="fa-regular fa-circle" title="產品品項"
+                value="Product"></v-list-item>
+            <v-list-item to="/admin/product-flavor" prepend-icon="fa-regular fa-circle" title="產品口味"
+                value="ProductFlavor"></v-list-item>
         </v-list-group>
         <v-list-group value="FAQ">
             <template #activator="{ props }">

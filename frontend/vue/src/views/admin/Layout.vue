@@ -74,12 +74,6 @@ const cruds = [
             <RouterView />
         </v-main>
     </v-app>
-    <!-- <v-list-item>
-                <template #prepend>
-                    <v-img width="50" aspect-ratio="1/1" cover src="@/assets/img/AdminLTELogo.png"></v-img>
-                </template>
-<v-list-item-title>後臺管理</v-list-item-title>
-</v-list-item> -->
 </template>
 
 <style scoped lang="scss">

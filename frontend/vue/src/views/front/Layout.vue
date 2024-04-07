@@ -304,6 +304,7 @@ onUnmounted(() => {
     &.contact {
         height: 50vh;
         background-image: url('@/assets/img/banner2.jpg');
+        background-position-y: 35%;
     }
 
 
