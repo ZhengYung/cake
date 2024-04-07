@@ -1,14 +1,26 @@
 
 ## 畫面
+前端
+![消息類別清單](/readme-img/frontend/story.jpeg)
 
-![消息類別清單](/readme-img/1.jpeg)
-![消息類別新增](/readme-img/2.jpeg)
-![消息類別新增結果](/readme-img/3.jpeg)
-![消息清單](/readme-img/4.jpeg)
-![消息新增-發布日期選擇](/readme-img/6.jpeg)
-![消息新增-縮圖裁切](/readme-img/8.jpeg)
-![消息刪除結果](/readme-img/16.jpeg)
-![](/readme-img/17.png)
+![消息類別新增](/readme-img/frontend/faq.jpeg)
+
+後臺
+![消息類別清單](/readme-img/backend//1.jpeg)
+
+![消息類別新增](/readme-img/backend//2.jpeg)
+
+![消息類別新增結果](/readme-img/backend//3.jpeg)
+
+![消息清單](/readme-img/backend//4.jpeg)
+
+![消息新增-發布日期選擇](/readme-img/backend//6.jpeg)
+
+![消息新增-縮圖裁切](/readme-img/backend//8.jpeg)
+
+![消息刪除](/readme-img/backend//16.jpeg)
+
+![消息刪除結果](/readme-img/backend//17.png)
 
 ## 專案使用
 
@@ -26,6 +38,6 @@
 
 ## 功能簡介
 
-品牌故事/最新消息/產品/購物須知 CRUD
+品牌故事/最新消息/產品/購物須知 CRUD(圖片有裁切功能)
 
 
